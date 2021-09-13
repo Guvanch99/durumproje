@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { ArticleName, Input, ModalPromoError, Portal } from '../../../components'
+import { ArticleName, Input, ModalPromoError, Portal,TwoFactorAuth } from '../../../components'
 import { loginUser } from '../../../redux/auth/actionCreator'
 
 import '../index.scss'
 
 const Login = () => {
+
   const [userLogin, setUserLogin] = useState({
     userName: '',
     password: ''
@@ -22,7 +23,7 @@ const Login = () => {
   const history = useHistory()
   const location = useLocation()
   const { t } = useTranslation('translation')
-  const { isModalPromoError,userNotFound} = useSelector(state => state.auth)
+  const { isModalPromoError,userNotFound,isTwoFactorAuth} = useSelector(state => state.auth)
   let { userName, password } = userLogin
 
   const isButtonDisabled =
@@ -83,41 +84,45 @@ const Login = () => {
 
   return (
     <>
-    <div className="auth">
-
-      <ArticleName name={t('articleNames.login')} />
-        {userNotFound && (
-        <h1 className="auth__error">{t('login.userNotFound')}</h1>
-      )}
-      {isModalPromoError ?(< Portal component={ModalPromoError} nameOfClass='modalPromoError'/>):(
-      <form className="form">
-        {LOGIN_DATA.map(
-          ({ name, value, label, error, type, functionError }, index) => (
-            <Input
-              key={index}
-              name={name}
-              value={value}
-              label={t(label)}
-              error={t(error)}
-              type={type}
-              onChange={handleChange}
-              required={true}
-              handleBlur={functionError}
-            />
-          )
-        )}
-        <button
-          type="submit"
-          onClick={login}
-          className="form__button"
-          disabled={isButtonDisabled}
-        >
-          {t('login.button')}
-        </button>
-      </form>)}
-    </div>
+    {
+      isTwoFactorAuth?<TwoFactorAuth/>:(
+        <div className="auth">
+          <ArticleName name={t('articleNames.login')} />
+          {userNotFound && (
+            <h1 className="auth__error">{t('login.userNotFound')}</h1>
+          )}
+          {isModalPromoError ?(< Portal component={ModalPromoError} nameOfClass='modalPromoError'/>):(
+            <form className="form">
+              {LOGIN_DATA.map(
+                ({ name, value, label, error, type, functionError }, index) => (
+                  <Input
+                    key={index}
+                    name={name}
+                    value={value}
+                    label={t(label)}
+                    error={t(error)}
+                    type={type}
+                    onChange={handleChange}
+                    required={true}
+                    handleBlur={functionError}
+                  />
+                )
+              )}
+              <button
+                type="submit"
+                onClick={login}
+                className="form__button"
+                disabled={isButtonDisabled}
+              >
+                {t('login.button')}
+              </button>
+            </form>)}
+        </div>
+      )
+    }
     </>
   )
+
 }
 
 export default Login

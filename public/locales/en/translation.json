@@ -224,6 +224,13 @@
       }
       
    },
+   "twoFactorAuth": {
+      "label": "Two-Factor Authentication",
+      "textInfo": "We have sent validation code to",
+      "question": "Not received code?",
+      "resend": "Resend",
+      "send": "send"
+   },
    "products":{
       "1":{
          "name":"combo menu-1",
@@ -311,4 +318,5 @@
    "deliveryTime": "Delivery time: {{timeDelivery}}",
    "lateDelivery": "If time is passed take free",
    "modalError": "Used promocodes will be removed !!!"
+
 }

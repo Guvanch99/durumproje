@@ -3,7 +3,7 @@ import {
     LOGIN_USER,
     USER_NOT_FOUND,
     LOGOUT,
-    USER_EXIST, MODAL_ERROR_TOGGLE
+    USER_EXIST, MODAL_ERROR_TOGGLE, TWO_FACTOR_AUTH_TOGGLE
 } from './type'
 import {DB} from '../../core/axios'
 import {ROUTER_HOME} from '../../constants'
@@ -32,6 +32,7 @@ export const modalPromoErrorToggle = () => ({type: MODAL_ERROR_TOGGLE})
 
 export const userNotFound = () => ({type: USER_NOT_FOUND})
 
+export const twoFactorAuthToggle=()=>({type:TWO_FACTOR_AUTH_TOGGLE})
 
 export const createUser = (user, location, history) => async (dispatch, getState) => {
     const {data: searchedUser} = await DB(
@@ -55,7 +56,9 @@ export const loginUser =
         const {data: users} = await DB(
             `/users?userName=${userName}&password=${password}`
         )
+
         if (users.length > 0) {
+            dispatch(twoFactorAuthToggle())
             const {cart: {gift, restrictedPromoCode: promoCodes}} = getState()
             let intersectionPromoCode = promoCodes.filter(element => users[0].restrictedPromoCode.includes(element));
 
@@ -79,11 +82,11 @@ export const loginUser =
             )
 
 
-            if (intersectionPromoCode.length === 0) {
+           /* if (intersectionPromoCode.length === 0) {
                 location.state !== null && location.state.from === '/sign-up'
                     ? history.push(ROUTER_HOME)
                     : history.goBack()
-            }
+            }*/
 
         } else {
             dispatch(userNotFound())
