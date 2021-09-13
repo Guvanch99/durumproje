@@ -1,0 +1,6 @@
+export const SET_USER = 'SET_USER'
+export const LOGOUT = 'LOGOUT'
+export const USER_EXIST = 'USER_EXIST'
+export const LOGIN_USER = 'LOGIN_USER'
+export const USER_NOT_FOUND = 'USER_NOT_FOUND '
+export const MODAL_ERROR_TOGGLE='MODAL_ERROR_TOGGLE'

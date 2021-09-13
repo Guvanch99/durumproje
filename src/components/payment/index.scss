@@ -1,0 +1,25 @@
+@import 'src/styles/common.scss';
+
+.payment {
+  @include flex(center, flex-end);
+  flex-direction: column;
+  margin: .5rem 3rem 1rem;
+
+  @include tablet {
+    align-items: center;
+  }
+
+  &__subtotal {
+    font-size: 3em;
+  }
+
+  &__shipping {
+    margin: 1rem 0;
+    font-size: 2em;
+  }
+
+  &__total {
+    font-size: 4em;
+    font-weight: bold;
+  }
+}

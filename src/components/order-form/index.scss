@@ -1,0 +1,49 @@
+@import 'src/styles/common.scss';
+
+.order-form {
+  @include flex(space-around, flex-start);
+  flex-wrap: wrap;
+  margin: 5rem 1rem 0 1rem;
+  @include fontFamily($fontDancingScript);
+  &__footer-container {
+    @include tablet {
+      & {
+        margin: 0 5rem;
+      }
+    }
+  }
+
+  &__info {
+    color: $mainColor;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__label {
+    font-size: 1.6em;
+  }
+
+  &__group {
+    @include flex(space-between, flex-end);
+  }
+
+  input[type='checkbox'] {
+    margin-top: 1.6rem;
+  }
+}
+.order__button {
+  align-self: center;
+  flex-grow: .3;
+  border-radius: 12%;
+  background-color: $greenSuccessColor;
+  @include fontFamily($fontDancingScript);
+  font-size: 4em;
+  color: $whiteColor;
+  cursor: pointer;
+  margin: .5rem 0;
+  &:disabled {
+    color: $whiteColor;
+    background-color: $lighterRedColor;
+    cursor: auto;
+  }
+}

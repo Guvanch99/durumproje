@@ -1,0 +1,20 @@
+@import 'src/styles/common.scss';
+
+.food {
+  &__name {
+    font-size: 3.2em;
+    @include fontFamily($fontStyleScript);
+  }
+
+  &__price {
+    @include fontFamily($fontRoboto);
+    font-size: 2em;
+    color: $mainColor;
+    font-weight: bold;
+  }
+
+  &__description {
+    font-size: 1.6em;
+    @include fontFamily($fontRoboto);
+  }
+}
