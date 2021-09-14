@@ -15,15 +15,16 @@ class PromoCode extends Component {
     promocode: '',
     error: false,
     isPromoUsed:false,
-    randomQuote: ''
+    randomQuote: '',
+    promocodeCopy:''
   }
 
   promocodeSubmit = e => {
     e.preventDefault()
     this.setState({error:false})
     if(this.props.restrictedPromoCode.includes(this.state.promocode.trim().toUpperCase())){
-
-      this.setState({isPromoUsed:true,error:true,promocode:''})
+      let updatedPromo=this.state.promocode.trim().toUpperCase()
+      this.setState({promocodeCopy:updatedPromo,isPromoUsed:true,error:true,promocode:''})
     }else{
       if (this.state.promocode.trim().toUpperCase() === HALYAVA_PROMOCODE) {
         let id = randomId(1, 17)
@@ -51,13 +52,12 @@ class PromoCode extends Component {
   }
 
   render() {
-    const { promocode, error, randomQuote,isPromoUsed } = this.state
+    const { promocode, error, randomQuote,isPromoUsed,promocodeCopy } = this.state
     const {  gift, t, } = this.props
-
     return (
       <>
         {!randomQuote ? <Spinner /> : <Quote randomQuote={randomQuote} />}
-        {isPromoUsed&&<h1 className='promo-used'>{t('promoCode.usedPromoCode',{promocode})}</h1>}
+        {isPromoUsed&&<h1 className='promo-used'>{t('promoCode.usedPromoCode',{promocode:promocodeCopy})}</h1>}
         <div className='promocode'>
           <form className='promocode-form' onSubmit={this.promocodeSubmit}>
             <label className='promocode-form__label'>

@@ -1,13 +1,20 @@
 import { useMemo, useState } from 'react'
+import {useDispatch} from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import {useHistory,useLocation} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import TwoFactorAuthInput from './internal'
 import { NUMBER_CHECKER } from '../../constants'
+import {loginUser} from '../../redux/auth/actionCreator'
 
 import './index.scss'
 
-const TwoFactorAuth = () => {
+const TwoFactorAuth = ({userName,password}) => {
   const { t } = useTranslation('translation')
+  const dispatch=useDispatch()
+  const history=useHistory()
+  const location=useLocation()
   const [userAuthInput, setUserAuthInput] = useState({
     input1: '',
     input2: '',
@@ -99,6 +106,8 @@ const TwoFactorAuth = () => {
   }
   const onSubmit = (e) => {
     e.preventDefault()
+    let hashPassword = window.btoa(password)
+    dispatch(loginUser(userName,hashPassword,location,history))
   }
   return (
     <div className='twoFactorAuth'>
@@ -127,4 +136,10 @@ const TwoFactorAuth = () => {
     </div>
   )
 }
+
+TwoFactorAuth.propTypes={
+  userName:PropTypes.string.isRequired,
+  password:PropTypes.string.isRequired
+}
+
 export default TwoFactorAuth

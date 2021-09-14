@@ -1,10 +1,9 @@
 import { useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { ArticleName, Input, ModalPromoError, Portal,TwoFactorAuth } from '../../../components'
-import { loginUser } from '../../../redux/auth/actionCreator'
+import { twoFactorAuth } from '../../../redux/auth/actionCreator'
 
 import '../index.scss'
 
@@ -20,8 +19,6 @@ const Login = () => {
   })
 
   const dispatch = useDispatch()
-  const history = useHistory()
-  const location = useLocation()
   const { t } = useTranslation('translation')
   const { isModalPromoError,userNotFound,isTwoFactorAuth} = useSelector(state => state.auth)
   let { userName, password } = userLogin
@@ -79,13 +76,12 @@ const Login = () => {
     const { userName, password } = userLogin
     let hashPassword = window.btoa(password)
 
-    dispatch(loginUser(userName, hashPassword, location, history))
+    dispatch(twoFactorAuth(userName, hashPassword))
   }
-
   return (
     <>
     {
-      isTwoFactorAuth?<TwoFactorAuth/>:(
+      isTwoFactorAuth?<TwoFactorAuth userName={userName} password={password} />:(
         <div className="auth">
           <ArticleName name={t('articleNames.login')} />
           {userNotFound && (

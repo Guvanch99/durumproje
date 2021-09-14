@@ -51,42 +51,47 @@ export const createUser = (user, location, history) => async (dispatch, getState
     }
 }
 
-export const loginUser =
-    (userName, password, location, history) => async (dispatch, getState) => {
+export const loginUser=(userName,password,location,history)=>async (dispatch,getState)=>{
+    const {data: users} = await DB(
+      `/users?userName=${userName}&password=${password}`
+    )
+    const {cart: {gift, restrictedPromoCode: promoCodes}} = getState()
+    let intersectionPromoCode = promoCodes.filter(element => users[0].restrictedPromoCode.includes(element));
+
+    const id = users[0].id
+    const restrictedPromoCode = [
+        ...users[0].restrictedPromoCode,
+        ...promoCodes
+    ]
+
+    const uniquePromoCodes = [...new Set(restrictedPromoCode)]
+    const {data} = await DB.patch(
+      `/users/${id}`, {restrictedPromoCode: uniquePromoCodes})
+
+    let updatedGift = gift.filter(x => !users[0].restrictedPromoCode.includes(x.promocode))
+
+    dispatch(updateGift(updatedGift))
+    dispatch(countTotal())
+    dispatch(twoFactorAuthToggle())
+    intersectionPromoCode.length > 0 && dispatch(modalPromoErrorToggle())
+    dispatch(login(data))
+    dispatch(updateRestrictedPromoCode(data.restrictedPromoCode)
+    )
+
+  if (intersectionPromoCode.length === 0) {
+         location.state !== null && location.state.from === '/sign-up'
+             ? history.push(ROUTER_HOME)
+             : history.goBack()
+     }
+}
+
+export const twoFactorAuth =
+    (userName, password) => async (dispatch) => {
         const {data: users} = await DB(
             `/users?userName=${userName}&password=${password}`
         )
-
         if (users.length > 0) {
             dispatch(twoFactorAuthToggle())
-            const {cart: {gift, restrictedPromoCode: promoCodes}} = getState()
-            let intersectionPromoCode = promoCodes.filter(element => users[0].restrictedPromoCode.includes(element));
-
-            const id = users[0].id
-            const restrictedPromoCode = [
-                ...users[0].restrictedPromoCode,
-                ...promoCodes
-            ]
-
-            const uniquePromoCodes = [...new Set(restrictedPromoCode)]
-            const {data} = await DB.patch(
-                `/users/${id}`, {restrictedPromoCode: uniquePromoCodes})
-
-            let updatedGift = gift.filter(x => !users[0].restrictedPromoCode.includes(x.promocode))
-
-            dispatch(updateGift(updatedGift))
-            dispatch(countTotal())
-            intersectionPromoCode.length > 0 && dispatch(modalPromoErrorToggle())
-            dispatch(login(data))
-            dispatch(updateRestrictedPromoCode(data.restrictedPromoCode)
-            )
-
-
-           /* if (intersectionPromoCode.length === 0) {
-                location.state !== null && location.state.from === '/sign-up'
-                    ? history.push(ROUTER_HOME)
-                    : history.goBack()
-            }*/
 
         } else {
             dispatch(userNotFound())

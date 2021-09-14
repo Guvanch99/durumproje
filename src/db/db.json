@@ -5,11 +5,7 @@
       "userName": "Guwanc",
       "email": "awediyewq@gmail.com",
       "password": "R3V2YW5jaDk5",
-      "restrictedPromoCode": [
-        "HALYAVA",
-        "BEVERAGE",
-        "DONER"
-      ]
+      "restrictedPromoCode": []
     },
     {
       "id": "0a72c7f2-46cd-479e-a497-774ae809cb2d",
@@ -17,6 +13,17 @@
       "email": "awedguwanc@gmail.com",
       "password": "R3V2YW5jaDk5OQ==",
       "restrictedPromoCode": [
+        "BEVERAGE",
+        "DONER"
+      ]
+    },
+    {
+      "id": "3dfac697-c854-47c7-92d2-5a262f69e03f",
+      "userName": "Guwanc12",
+      "email": "awediyewguwanc12@gmail.com",
+      "password": "R3V2YW5jaDk5",
+      "restrictedPromoCode": [
+        "HALYAVA",
         "BEVERAGE",
         "DONER"
       ]
