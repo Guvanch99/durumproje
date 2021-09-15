@@ -6,9 +6,9 @@ import {
     USER_EXIST, MODAL_ERROR_TOGGLE, TWO_FACTOR_AUTH_TOGGLE
 } from './type'
 import {DB} from '../../core/axios'
-import {ROUTER_HOME} from '../../constants'
+import {ROUTER_HOME} from '../../constants/routers'
 import {
-    updateRestrictedPromoCode,
+    updateRestrictedPromoCodes,
     updateGift,
     countTotal,
 } from '../cart/actionCreators'
@@ -41,10 +41,10 @@ export const createUser = (user, location, history) => async (dispatch, getState
     if (searchedUser.length) {
         dispatch(isUserExist())
     } else {
-        const {cart: {restrictedPromoCode}} = getState()
-        const {data} = await DB.post('/users', {...user, restrictedPromoCode})
+        const {cart: {restrictedPromoCodes}} = getState()
+        const {data} = await DB.post('/users', {...user, restrictedPromoCodes})
         dispatch(signUp(data))
-        dispatch(updateRestrictedPromoCode(data.restrictedPromoCode))
+        dispatch(updateRestrictedPromoCodes(data.restrictedPromoCodes))
         location.state !== null && location.state.from === '/login'
             ? history.push(ROUTER_HOME)
             : history.goBack()
@@ -55,27 +55,27 @@ export const loginUser=(userName,password,location,history)=>async (dispatch,get
     const {data: users} = await DB(
       `/users?userName=${userName}&password=${password}`
     )
-    const {cart: {gift, restrictedPromoCode: promoCodes}} = getState()
-    let intersectionPromoCode = promoCodes.filter(element => users[0].restrictedPromoCode.includes(element));
+    const {cart: {gift, restrictedPromoCodes: promoCodes}} = getState()
+    let intersectionPromoCode = promoCodes.filter(element => users[0].restrictedPromoCodes.includes(element));
 
     const id = users[0].id
-    const restrictedPromoCode = [
-        ...users[0].restrictedPromoCode,
+    const restrictedPromoCodes = [
+        ...users[0].restrictedPromoCodes,
         ...promoCodes
     ]
 
-    const uniquePromoCodes = [...new Set(restrictedPromoCode)]
+    const uniquePromoCodes = [...new Set(restrictedPromoCodes)]
     const {data} = await DB.patch(
-      `/users/${id}`, {restrictedPromoCode: uniquePromoCodes})
+      `/users/${id}`, {restrictedPromoCodes: uniquePromoCodes})
 
-    let updatedGift = gift.filter(x => !users[0].restrictedPromoCode.includes(x.promocode))
+    let updatedGift = gift.filter(x => !users[0].restrictedPromoCodes.includes(x.promoCode))
 
     dispatch(updateGift(updatedGift))
     dispatch(countTotal())
     dispatch(twoFactorAuthToggle())
     intersectionPromoCode.length > 0 && dispatch(modalPromoErrorToggle())
     dispatch(login(data))
-    dispatch(updateRestrictedPromoCode(data.restrictedPromoCode)
+    dispatch(updateRestrictedPromoCodes(data.restrictedPromoCodes)
     )
 
   if (intersectionPromoCode.length === 0) {

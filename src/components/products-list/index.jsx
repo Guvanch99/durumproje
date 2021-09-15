@@ -13,8 +13,8 @@ const ProductsList = ({ view }) => {
   return <ViewBar products={allProducts} />
 }
 
-export default ProductsList
-
 ProductsList.propTypes = {
   view: PropTypes.bool.isRequired
 }
+
+export default ProductsList

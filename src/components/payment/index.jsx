@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { ROUTER_CHECKOUT, ROUTER_SIGN_UP, SHIPPING_FEE } from '../../constants'
 import { PageLink } from '..'
+
+import { ROUTER_CHECKOUT, ROUTER_SIGN_UP } from '../../constants/routers'
+import { SHIPPING_FEE } from '../../constants/variables'
 
 import './index.scss'
 
@@ -16,13 +18,13 @@ const Payment = () => {
   let total = totalAmount + SHIPPING_FEE
 
   return (
-    <div className="payment">
-      <h2 className="payment__subtotal">
+    <div className='payment'>
+      <h2 className='payment__subtotal'>
         {t('payment.subTotal', { totalAmount })}
       </h2>
-      <p className="payment__shipping"> {t('payment.shipping')}</p>
+      <p className='payment__shipping'> {t('payment.shipping')}</p>
       <hr />
-      <h1 className="payment__total"> {t('payment.orderTotal', { total })}</h1>
+      <h1 className='payment__total'> {t('payment.orderTotal', { total })}</h1>
 
       {user ? (
         <PageLink

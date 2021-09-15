@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { Sidebar, Navbar, Footer, PrivateRoute } from '../components'
+
 import {
   Home,
   Menu,
@@ -16,6 +17,11 @@ import {
   CheckOut,
   Promotions
 } from '../pages'
+
+import { countTotal } from '../redux/cart/actionCreators'
+
+import { useTheme } from '../hooks'
+
 import {
   ROUTER_HOME,
   ROUTER_ABOUT,
@@ -25,14 +31,20 @@ import {
   ROUTER_CART,
   ROUTER_LOGIN,
   ROUTER_SIGN_UP,
-  ROUTER_CHECKOUT,
+  ROUTER_CHECKOUT
+
+
+} from '../constants/routers'
+
+import {
   DARK_GREEN_COLOR,
-  WHITE_COLOR,
+  WHITE_COLOR
+} from '../constants/themeColors'
+
+import {
   OVERFLOW_HIDDEN,
   OVERFLOW_X_HIDDEN
-} from '../constants'
-import { useTheme } from '../hooks'
-import { countTotal } from '../redux/cart/actionCreators'
+} from '../constants/variables'
 
 import './index.scss'
 
@@ -59,9 +71,7 @@ const App = () => {
   document.body.style.background = themeDark ? DARK_GREEN_COLOR : WHITE_COLOR
 
   useEffect(() => {
-    document.body.style = !isSidebarVisible
-      ? OVERFLOW_HIDDEN
-      : OVERFLOW_X_HIDDEN
+    document.body.style = isSidebarVisible ? OVERFLOW_X_HIDDEN : OVERFLOW_HIDDEN
     window.scrollTo(0, 0)
   }, [isSidebarVisible])
 
@@ -81,7 +91,7 @@ const App = () => {
         sidebarVisibilityToggle={sidebarVisibilityToggle}
         changeLanguageHandler={changeLanguageHandler}
       />
-      <main className="main">
+      <main className='main'>
         <Switch>
           <Route exact path={ROUTER_HOME} component={Home} />
           <Route exact path={ROUTER_MENU} component={Menu} />

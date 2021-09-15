@@ -20,15 +20,15 @@ const Home = () => {
 
   return (
     <>
-      {!featuredProducts ? (
-        <Spinner />
-      ) : (
+      {featuredProducts ? (
         <>
           <ImageSlider />
           <Motto />
           <FeaturedFood />
           <Contacts />
         </>
+      ) : (
+        <Spinner />
       )}
     </>
   )

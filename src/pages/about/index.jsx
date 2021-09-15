@@ -7,6 +7,7 @@ import {
   Accordion,
   AboutMain
 } from '../../components'
+
 import { DATA } from '../../data'
 
 import './index.scss'
@@ -19,7 +20,7 @@ const About = () => {
     <div className="about-container">
       <PageHero title={t('pageHero.about')} />
       <ArticleName name={t('articleNames.ourValue')} />
-      <div className="accordian-container">
+      <div className="accordion-container">
         {ourValueTranslateKeys.map(key => (
           <Accordion
             key={key}

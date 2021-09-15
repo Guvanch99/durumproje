@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 import { MenuAuthCart, ToggleButton, Language } from '../'
+
 import { DATA } from '../../data'
-import { ROUTER_HOME } from '../../constants'
+
+import { ROUTER_HOME } from '../../constants/routers'
 
 import './index.scss'
 
@@ -48,10 +50,10 @@ const Sidebar = ({ sidebarVisibilityToggle, lang, changeLanguageHandler }) => {
   )
 }
 
-export default memo(Sidebar)
-
 Sidebar.propTypes = {
   sidebarVisibilityToggle: PropTypes.func.isRequired,
   lang: PropTypes.string,
   changeLanguageHandler: PropTypes.func
 }
+
+export default memo(Sidebar)

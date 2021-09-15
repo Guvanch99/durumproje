@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { fetchAllProducts } from '../../redux/menu/actionCreators'
+
 import {
   Sort,
   ProductsList,
@@ -25,9 +26,7 @@ const Menu = () => {
 
   return (
     <>
-      {!allProducts ? (
-        <Spinner />
-      ) : (
+      {allProducts ? (
         <div>
           <PageHero title={t('pageHero.menu')} />
           <ArticleName name={t('articleNames.menu')} />
@@ -36,6 +35,8 @@ const Menu = () => {
             <ProductsList view={view} />
           </div>
         </div>
+      ) : (
+        <Spinner />
       )}
     </>
   )

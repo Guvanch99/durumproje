@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { CartContent, PageLink } from '../../components'
-import { ROUTER_MENU } from '../../constants'
+
+import { ROUTER_MENU } from '../../constants/routers'
 
 import './index.scss'
 

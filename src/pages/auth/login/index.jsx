@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { ArticleName, Input, ModalPromoError, Portal,TwoFactorAuth } from '../../../components'
+
 import { twoFactorAuth } from '../../../redux/auth/actionCreator'
 
 import '../index.scss'
@@ -84,9 +85,9 @@ const Login = () => {
       isTwoFactorAuth?<TwoFactorAuth userName={userName} password={password} />:(
         <div className="auth">
           <ArticleName name={t('articleNames.login')} />
-          {userNotFound && (
+          {userNotFound ? (
             <h1 className="auth__error">{t('login.userNotFound')}</h1>
-          )}
+          ):null}
           {isModalPromoError ?(< Portal component={ModalPromoError} nameOfClass='modalPromoError'/>):(
             <form className="form">
               {LOGIN_DATA.map(

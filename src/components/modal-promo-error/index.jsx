@@ -4,16 +4,16 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { modalPromoErrorToggle } from '../../redux/auth/actionCreator'
-import { ROUTER_CART } from '../../constants'
+
+import { ROUTER_CART } from '../../constants/routers'
 
 import './index.scss'
-
-
 
 const ModalPromoError = () => {
   const dispatch = useDispatch()
   const history=useHistory()
   const { t } = useTranslation('translation')
+
   const closeModal = (e) => {
     e.preventDefault()
     dispatch(modalPromoErrorToggle())

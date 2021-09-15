@@ -8,8 +8,8 @@ import {
     TOGGLE_CART_PRODUCT_AMOUNT,
     GET_PRESENT,
     CLEAR_ORDER,
-    PROMOCODE_USED,
-    UPDATE_RESTRICTED_PROMOCODE,
+    PROMO_CODE_USED,
+    UPDATE_RESTRICTED_PROMO_CODE,
     UPDATE_GIFT
 } from './type'
 
@@ -38,15 +38,15 @@ export const getPresent = payload => ({
     type: GET_PRESENT,
     payload
 })
-export const userPromocodeUsed = payload => ({type: PROMOCODE_USED, payload})
+export const userPromoCodeUsed = payload => ({type: PROMO_CODE_USED, payload})
 
 export const updateGift = payload => ({type: UPDATE_GIFT, payload})
 
-export const updateRestrictedPromoCode = (payload) => ({type: UPDATE_RESTRICTED_PROMOCODE, payload})
+export const updateRestrictedPromoCodes = (payload) => ({type: UPDATE_RESTRICTED_PROMO_CODE, payload})
 
-export const getPresentPromo = (idProduct, promocode) => async (dispatch, getState) => {
+export const getPresentPromo = (idProduct, promoCode) => async (dispatch, getState) => {
     const {data} = await DB(`/all-products?id=${idProduct}`)
-    const {auth: {user}, cart: {restrictedPromoCode}} = getState()
+    const {auth: {user}, cart: {restrictedPromoCodes}} = getState()
     const {id, name, src, description, type} = data[0]
     const payload = {
         id,
@@ -56,19 +56,20 @@ export const getPresentPromo = (idProduct, promocode) => async (dispatch, getSta
         price: 0,
         description,
         type,
-        promocode
+        promoCode
     }
     dispatch(getPresent(payload))
-    dispatch(userPromocodeUsed(promocode))
+    dispatch(userPromoCodeUsed(promoCode))
     dispatch(countTotal())
     const promoCodes = [
-        ...restrictedPromoCode,
-        promocode
+        ...restrictedPromoCodes,
+        promoCode
     ]
   user !==null&&  await DB.patch(
-        `/users/${user.id}`, {restrictedPromoCode: promoCodes}
+        `/users/${user.id}`, {restrictedPromoCodes: promoCodes}
     )
 
-
-
+}
+export const order = async orderData => {
+    await DB.post('/orders', orderData)
 }

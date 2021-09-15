@@ -1,12 +1,13 @@
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
+import { AmountButtons, PageLink } from '..'
+
 import { addToCart } from '../../redux/cart/actionCreators'
-import { AmountButtons } from '..'
-import { ROUTER_CART } from '../../constants'
-import PageLink from '../page-link'
+
+import { ROUTER_CART } from '../../constants/routers'
 
 import './index.scss'
 
@@ -16,8 +17,7 @@ const AddToCart = ({ singleProduct }) => {
 
   const increase = useCallback(() => {
     setAmount(prev => {
-      let temp = ++prev
-      return temp
+      return ++prev
     })
   }, [])
 
@@ -51,8 +51,8 @@ const AddToCart = ({ singleProduct }) => {
   )
 }
 
-export default AddToCart
-
 AddToCart.propTypes = {
   singleProduct: PropTypes.object.isRequired
 }
+
+export default AddToCart

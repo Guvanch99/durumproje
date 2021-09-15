@@ -1,7 +1,9 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DATA } from '../../data'
+
 import { ArticleName } from '..'
+
+import { DATA } from '../../data'
 
 import './index.scss'
 
@@ -13,11 +15,11 @@ const Motto = () => {
   return (
     <>
       <ArticleName name={t('articleNames.motto')} />
-      <div className="motto">
-        <img className="motto__image" src={mottoImage} alt="Motto" />
-        <div className="motto__text">
-          <h2 className="motto__text-main">{t('motto.mottoMain')} </h2>
-          <h1 className="motto__text-secondary">{t('motto.mottoSecondary')}</h1>
+      <div className='motto'>
+        <img className='motto__image' src={mottoImage} alt='Motto' />
+        <div className='motto__text'>
+          <h2 className='motto__text-main'>{t('motto.mottoMain')} </h2>
+          <h1 className='motto__text-secondary'>{t('motto.mottoSecondary')}</h1>
         </div>
       </div>
     </>

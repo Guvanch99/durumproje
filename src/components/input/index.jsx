@@ -32,11 +32,9 @@ const Input = ({
       disabled={disabled}
     />
 
-    {error && <span className="input-container__error">{error}</span>}
+    {error ? <span className="input-container__error">{error}</span>:null}
   </div>
 )
-
-export default Input
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
@@ -50,3 +48,5 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   handleBlur: PropTypes.func
 }
+
+export default Input

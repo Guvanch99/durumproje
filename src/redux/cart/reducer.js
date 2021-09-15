@@ -6,8 +6,8 @@ import {
   TOGGLE_CART_PRODUCT_AMOUNT,
   GET_PRESENT,
   CLEAR_ORDER,
-  PROMOCODE_USED,
-  UPDATE_RESTRICTED_PROMOCODE, UPDATE_GIFT
+  PROMO_CODE_USED,
+  UPDATE_RESTRICTED_PROMO_CODE, UPDATE_GIFT
 } from './type'
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   gift: [],
   totalAmount: 0,
   totalItems: 0,
-  restrictedPromoCode:[]
+  restrictedPromoCodes:[]
 }
 
 export const cartReducer = (state = initialState, { type, payload }) => {
@@ -106,10 +106,10 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       return { ...state, gift: [...state.gift,payload] }
     case CLEAR_ORDER:
       return { ...state, cart: [], gift: [] }
-    case PROMOCODE_USED:
-      return {...state,restrictedPromoCode:[...state.restrictedPromoCode,payload] }
-    case UPDATE_RESTRICTED_PROMOCODE:
-      return  {...state,restrictedPromoCode:payload}
+    case PROMO_CODE_USED:
+      return {...state,restrictedPromoCodes:[...state.restrictedPromoCodes,payload] }
+    case UPDATE_RESTRICTED_PROMO_CODE:
+      return  {...state,restrictedPromoCodes:payload}
     case UPDATE_GIFT:
       return  {...state,gift:payload}
     default:

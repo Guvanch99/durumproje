@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
-import { DATA } from '../../data'
-import { ROUTER_CART } from '../../constants'
 import { logOut } from '../../redux/auth/actionCreator'
+
+import { DATA } from '../../data'
+
+import { ROUTER_CART } from '../../constants/routers'
 
 import './index.scss'
 
@@ -25,24 +27,28 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
   }
 
   return (
-    <ul className="menu">
-      <li className="menu__list">
+    <ul className='menu'>
+      <li className='menu__list'>
         <NavLink
           onClick={sidebarVisibilityToggle}
-          className="menu__list-link"
+          className='menu__list-link'
           to={ROUTER_CART}
         >
           {t('menuAuthCart.cart.name')}
           <i className={`fas fa-cart-plus menu__list-icon`} />
-          <span className="order-count">{totalItems}</span>
+          <span className='order-count'>{totalItems}</span>
         </NavLink>
       </li>
-      {!user ? (
-        menuAuthCart.map(({ url, keyName, iconName }, index) => (
-          <li key={index} className="menu__list">
+      {user ? (
+        <button onClick={logout} className='logout'>
+          {t('logout')}
+        </button>
+      ) : (
+        menuAuthCart.map(({ url, keyName, iconName }, idx) => (
+          <li key={idx} className='menu__list'>
             <NavLink
               onClick={sidebarVisibilityToggle}
-              className="menu__list-link"
+              className='menu__list-link'
               to={{ pathname: url, state: { from: location.pathname } }}
             >
               {t(`menuAuthCart.${keyName}.name`)}
@@ -50,17 +56,13 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
             </NavLink>
           </li>
         ))
-      ) : (
-        <button onClick={logout} className="logout">
-          {t('logout')}
-        </button>
       )}
     </ul>
   )
 }
 
-export default memo(MenuAuthCart)
-
 MenuAuthCart.propTypes = {
   sidebarVisibilityToggle: PropTypes.func
 }
+
+export default memo(MenuAuthCart)

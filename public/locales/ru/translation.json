@@ -82,7 +82,7 @@
       "placeholderDefault":"Введите промо-код",
       "buttonDisabled":"Отключено",
       "buttonSubmit":"Отправить",
-      "usedPromoCode": "Вы уже использовали этот код ,{{promocode}} "
+      "usedPromoCode": "Вы уже использовали этот код ,{{promoCode}} "
    },
    "promoCodeGift":{
       "label":"Ура твой бесплатный подарок "

@@ -2,18 +2,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { CartTable, Payment, PageLink, CartGift } from '..'
+
 import { clearCart } from '../../redux/cart/actionCreators'
-import { ROUTER_MENU } from '../../constants'
+
+import { ROUTER_MENU } from '../../constants/routers'
 
 import './index.scss'
 
 const CartContent = () => {
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
   const { t } = useTranslation('translation')
   const { gift } = useSelector(state => state.cart)
 
   const clearCartHandler = () => {
-    dispath(clearCart())
+    dispatch(clearCart())
   }
 
   return (

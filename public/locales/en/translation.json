@@ -81,7 +81,7 @@
       "placeholderDefault":"Enter promo code",
       "buttonDisabled":"Disabled",
       "buttonSubmit":"Submit",
-      "usedPromoCode": "You are already used  this code,{{promocode}} "
+      "usedPromoCode": "You are already used  this code,{{promoCode}} "
    },
    "promoCodeGift":{
       "label":"Hurrey your Free Gift "
@@ -93,7 +93,7 @@
       "motto":"Our Motto",
       "loved":"Most Loved Meals",
       "contacts":"Contacts",
-      "randomQuote":"Generated random funny Quote what Tonald Trump said ",
+      "randomQuote":"Generated random funny Quote what Donald Trump said ",
       "signUp":"Sign Up",
       "login":"Login"
    },

@@ -10,6 +10,7 @@ const Portal = ({ component: ComponentPortal, nameOfClass, ...rest }) => {
       document.body.removeChild(el)
     }
   }, [el])
+
   return createPortal(<ComponentPortal {...rest} />, el)
 }
 

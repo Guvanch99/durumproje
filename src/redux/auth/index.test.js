@@ -25,7 +25,7 @@ describe('auth reducer tree', () => {
       password: 'Guvanch99'
     }
     let { user, userExist } = reducer(signUp(newUser))
-    expect.assertions(5)
+    expect.assertions(6)
     expect(user && typeof user === 'object').toBeTruthy()
     expect(user).not.toEqual(null)
     expect(user).not.toBeUndefined()

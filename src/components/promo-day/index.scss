@@ -15,7 +15,7 @@
   }
 }
 
-.promoday {
+.promoDay {
   @include flex(center, normal);
   flex-wrap: wrap;
   @include fontFamily($fontDancingScript);

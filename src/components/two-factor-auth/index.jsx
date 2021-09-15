@@ -2,13 +2,17 @@ import { useMemo, useState } from 'react'
 import {useDispatch} from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import {useHistory,useLocation} from 'react-router-dom'
+import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
 import TwoFactorAuthInput from './internal'
-import { NUMBER_CHECKER } from '../../constants'
+
 import {loginUser} from '../../redux/auth/actionCreator'
 
+import { NUMBER_CHECKER } from '../../constants/regexes'
+
 import './index.scss'
+
 
 const TwoFactorAuth = ({userName,password}) => {
   const { t } = useTranslation('translation')
@@ -22,7 +26,6 @@ const TwoFactorAuth = ({userName,password}) => {
     input4: '',
     input5: '',
     input6: ''
-
   })
 
   const { input1, input2, input3, input4, input5, input6 } = userAuthInput
@@ -33,6 +36,7 @@ const TwoFactorAuth = ({userName,password}) => {
     !input4 ||
     !input5 ||
     !input6
+
   const INPUT_DATA = useMemo(
     () => [
       {
@@ -62,12 +66,15 @@ const TwoFactorAuth = ({userName,password}) => {
     ],
     [input1, input2, input3, input4, input5, input6]
   )
-  const handleChange = (e) => {
-    const { value, name, maxLength } = e.target
+  const handleChange = ({target}) => {
+    const { value, name, maxLength } = target
+
     const num = name.match(/\d+/g)
-    if (value === '' || NUMBER_CHECKER.test(value)) {
+
+    if (value !== '' || NUMBER_CHECKER.test(value)) {
       let fieldIntIndex = parseInt(num, 10)
-      if (value.length >= maxLength) {
+
+      if (value.length === maxLength) {
 
         if (fieldIntIndex < 6) {
           const nextfield = document.querySelector(
@@ -84,11 +91,11 @@ const TwoFactorAuth = ({userName,password}) => {
       })
     }
   }
+
   const keydownHandler = (e) => {
     const { name } = e.target
     const num = name.match(/\d+/g)
     if (e.keyCode === 8) {
-      console.log('fired')
       let fieldIntIndex = parseInt(num, 10)
       if (fieldIntIndex > 1) {
         const prevfield = document.querySelector(
@@ -104,26 +111,28 @@ const TwoFactorAuth = ({userName,password}) => {
       })
     }
   }
+
   const onSubmit = (e) => {
     e.preventDefault()
     let hashPassword = window.btoa(password)
     dispatch(loginUser(userName,hashPassword,location,history))
   }
+//todo 2 and index constant classNames 126
   return (
     <div className='twoFactorAuth'>
       <h1 className='twoFactorAuth__label'>{t('twoFactorAuth.label')}</h1>
       <i className='fas fa-lock twoFactorAuth__icon' />
-      <h3 className='twoFactorAuth__text-info'>{t('twoFactorAuth.textInfo')} </h3>
+      <h3 className='twoFactorAuth__text-info'>{t('twoFactorAuth.textInfo')}</h3>
       <h2 className='twoFactorAuth__phone'>+375.......52</h2>
       <form className='twoFactorAuth__form' onSubmit={onSubmit}>
         <div className='twoFactorAuth__inputs'>
           {
-            INPUT_DATA.map(({ name, value }, index) => (
-                <div key={index} className={index===2?'twoFactorAuth__container':''}>
-                  <TwoFactorAuthInput  onkeydown={keydownHandler} key={index} handleChange={handleChange} name={name}
+            INPUT_DATA.map(({ name, value }, idx) => (
+                <div key={idx} className={classNames({'twoFactorAuth__container':idx===2})}>
+                  <TwoFactorAuthInput  onkeydown={keydownHandler} key={idx} handleChange={handleChange} name={name}
                                       value={value} />
 
-                  {index === 2 && <div className='twoFactorAuth__dash'>-</div>}
+                  {idx === 2 ? <div className='twoFactorAuth__dash'>-</div>:null}
                 </div>
               )
             )

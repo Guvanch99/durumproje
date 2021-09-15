@@ -5,8 +5,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { useTranslation } from 'react-i18next'
 
 import { ArticleName, Input } from '../../../components'
+
 import { createUser } from '../../../redux/auth/actionCreator'
-import { EMAIL_VALIDATION } from '../../../constants'
+
+import { EMAIL_VALIDATION } from '../../../constants/regexes'
 
 import '../index.scss'
 
@@ -61,7 +63,7 @@ const Register = () => {
       })
   }
   /* eslint-disable */
-  const CREDETIALS_DATA = useMemo(
+  const CREDENTIALS_DATA = useMemo(
     () => [
       {
         name: 'userName',
@@ -110,11 +112,11 @@ const Register = () => {
   return (
     <div className="auth">
       <ArticleName name={t('articleNames.signUp')} />
-      {userExist && (
+      {userExist ? (
         <h1 className="auth__error">{t('registration.registered')}</h1>
-      )}
+      ):null}
       <form className="form">
-        {CREDETIALS_DATA.map(
+        {CREDENTIALS_DATA.map(
           ({ name, value, label, error, type, functionError }, index) => (
             <Input
               key={index}

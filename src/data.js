@@ -5,7 +5,7 @@ import {
   ROUTER_MENU,
   ROUTER_PROMOTIONS,
   ROUTER_SIGN_UP
-} from './constants'
+} from './constants/routers'
 
 export const DATA = {
   links: [

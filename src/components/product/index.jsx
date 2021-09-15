@@ -33,8 +33,6 @@ const Product = ({ singleProduct }) => {
   )
 }
 
-export default memo(Product)
-
 Product.propTypes = {
   singleProduct: PropTypes.shape({
     src: PropTypes.string,
@@ -44,3 +42,4 @@ Product.propTypes = {
     type: PropTypes.string
   })
 }
+export default memo(Product)

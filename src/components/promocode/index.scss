@@ -1,6 +1,6 @@
 @import 'src/styles/common.scss';
 
-.promocode {
+.promoCode {
   @include flex(center, center);
   flex-direction: column;
   @include fontFamily($fontDancingScript);
@@ -53,6 +53,10 @@
         & {
           font-size: 1.8em;
         }
+      }
+      &:disabled{
+        background-color: $lighterRedColor;
+        cursor: default;
       }
     }
   }

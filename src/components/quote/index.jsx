@@ -17,9 +17,9 @@ const Quote = ({ randomQuote }) => {
   )
 }
 
-export default memo(Quote)
-
 Quote.propTypes = {
   value: PropTypes.string,
   tag: PropTypes.string
 }
+
+export default memo(Quote)

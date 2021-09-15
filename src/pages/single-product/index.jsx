@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { Spinner, Product, PageHero } from '../../components'
+
 import { fetchSingleProduct } from '../../redux/single-product/actionCreator'
 
 import './index.scss'
@@ -20,13 +21,13 @@ const SingleProduct = () => {
 
   return (
     <>
-      {!singleProduct ? (
-        <Spinner />
-      ) : (
-        <div className="single-product">
+      {singleProduct ? (
+        <div className='single-product'>
           <PageHero menu={true} title={t('pageHero.singleProduct')} />
           <Product singleProduct={singleProduct} />
         </div>
+      ) : (
+        <Spinner />
       )}
     </>
   )

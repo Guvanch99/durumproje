@@ -19,8 +19,9 @@ const InformationList = ({ info }) => {
   )
 }
 
-export default memo(InformationList)
-
 InformationList.propTypes = {
   info: PropTypes.array.isRequired
 }
+
+export default memo(InformationList)
+

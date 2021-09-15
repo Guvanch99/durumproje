@@ -14,7 +14,6 @@ const Language = ({ changeLanguageHandler }) => {
       <select
         className="language__select"
         name="language"
-        as="select"
         onChange={e => changeLanguageHandler(e)}
       >
         <option className="language__option" value="en">
@@ -28,8 +27,8 @@ const Language = ({ changeLanguageHandler }) => {
   )
 }
 
-export default Language
-
 Language.propTypes = {
   changeLanguageHandler: PropTypes.func.isRequired
 }
+
+export default Language

@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
 
 import { Input, Modal, Portal } from '..'
-import { DB } from '../../core/axios'
-import { clearOrder } from '../../redux/cart/actionCreators'
+
+import { clearOrder,order } from '../../redux/cart/actionCreators'
+
 import {
   INTEGER_VALIDATION,
   PHONE_VALIDATION,
   INTEGER_AND_ZERO_VALIDATION
-} from '../../constants'
+} from '../../constants/regexes'
+
 import './index.scss'
 
 const OrderForm = () => {
@@ -21,6 +23,7 @@ const OrderForm = () => {
   } = useSelector(state => state)
 
   const dispatch = useDispatch()
+
   const [userInfo, setUserInfo] = useState({
     userName: user.userName,
     email: user.email,
@@ -177,9 +180,7 @@ const OrderForm = () => {
     setUserInfo({ ...userInfo, [name]: value })
   }
 
-  const order = async orderData => {
-    await DB.post('/orders', orderData)
-  }
+
   const orderMenu = e => {
     e.preventDefault()
 
@@ -279,7 +280,7 @@ const OrderForm = () => {
                   type='radio'
                   name={name}
                   id={value}
-                  defaultChecked={index === 0 && true}
+                  defaultChecked={index === 0}
                 />
               </div>
             ))}

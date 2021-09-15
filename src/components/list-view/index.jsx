@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 import { PageLink } from '..'
-import { ROUTER_MENU } from '../../constants'
+
+import { ROUTER_MENU } from '../../constants/routers'
 
 import './index.scss'
 
@@ -34,8 +35,8 @@ const ListView = ({ products }) => {
   )
 }
 
-export default memo(ListView)
-
 ListView.propTypes = {
   products: PropTypes.array.isRequired
 }
+
+export default memo(ListView)

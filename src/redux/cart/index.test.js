@@ -2,7 +2,7 @@ import { cartReducer } from './reducer'
 import {
   clearOrder,
   countTotal,
-  userPromocodeUsed,
+  userPromoCodeUsed,
   clearCart,
   getPresent,
   addToCart,
@@ -53,7 +53,7 @@ const state = {
     description: 'description description',
     type: 'Durum'
   },
-  promocodeUsed: false,
+  promoCodeUsed: false,
   totalAmount: 0,
   totalItems: 0
 }
@@ -77,16 +77,16 @@ describe('cart reducer tree', () => {
     expect(cart).not.toBeNull()
     expect(cart).not.toBeUndefined()
   })
-  it('user promoce used', () => {
-    let newState = reducer(userPromocodeUsed())
+  it('user promoCode used', () => {
+    let newState = reducer(userPromoCodeUsed())
     expect.assertions(1)
-    expect(newState.promocodeUsed).toBeTruthy()
+    expect(newState.promoCodeUsed).toBeTruthy()
   })
   it('get present for user', () => {
     let state = {
       cart: [],
       gift: null,
-      promocodeUsed: false,
+      promoCodeUsed: false,
       totalAmount: 0,
       totalItems: 0
     }

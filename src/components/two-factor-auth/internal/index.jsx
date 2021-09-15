@@ -18,11 +18,11 @@ const TwoFactorAuthInput = ({ name, value, handleChange,onkeydown }) => (
   />
 )
 
-export default TwoFactorAuthInput
-
 TwoFactorAuthInput.propTypes={
   name:PropTypes.string.isRequired,
   value:PropTypes.string.isRequired,
   handleChange:PropTypes.func.isRequired,
   onKeyDown:PropTypes.func
 }
+
+export default TwoFactorAuthInput

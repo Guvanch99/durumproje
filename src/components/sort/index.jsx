@@ -7,6 +7,7 @@ import {
   onChangeHandler,
   filterProducts
 } from '../../redux/menu/actionCreators'
+
 import { DATA } from '../../data'
 
 import './index.scss'
@@ -28,6 +29,7 @@ const Sort = ({ view, viewHandler }) => {
 
     dispatch(onChangeHandler(payload))
   }
+
   useEffect(() => {
     dispatch(filterProducts())
   }, [sort, sortCategory, dispatch])
@@ -58,11 +60,11 @@ const Sort = ({ view, viewHandler }) => {
           )
         })}
       </div>
-      {filteredProducts.length > 0 && (
+      {filteredProducts.length > 0 ? (
         <h2 className="menu-count">
           {t('menuCount', { count: filteredProducts.length })}
         </h2>
-      )}
+      ):null}
       <form className="sort-form">
         <label className="sort-form__label" htmlFor="sort">
           {t('sort.sortLabel')}
@@ -78,7 +80,7 @@ const Sort = ({ view, viewHandler }) => {
               className="sort-form__option"
               key={index}
               value={value}
-              disabled={index === 0 ? true : false}
+              disabled={index === 0}
             >
               {t(`sort.sortOptions.${keyName}.name`)}
             </option>
@@ -89,9 +91,9 @@ const Sort = ({ view, viewHandler }) => {
   )
 }
 
-export default memo(Sort)
-
 Sort.propTypes = {
   view: PropTypes.bool.isRequired,
   viewHandler: PropTypes.func.isRequired
 }
+
+export default memo(Sort)
