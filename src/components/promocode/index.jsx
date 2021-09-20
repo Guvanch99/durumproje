@@ -61,11 +61,11 @@ class PromoCode extends Component {
                 error: true,
                 promoCode: ''
             })
-        } else {
+        } else
             promoCodeMap[promoCodeUppercase] ?
                 this.randomProduct(promoCodeMap[promoCodeUppercase].productsBegin, promoCodeMap[promoCodeUppercase].productsEnd, promoCodeMap[promoCodeUppercase]) :
                 this.setState({error: true, promoCode: ''})
-        }
+
     }
 
     async componentDidMount() {
