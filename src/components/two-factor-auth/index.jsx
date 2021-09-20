@@ -57,11 +57,9 @@ const TwoFactorAuth = ({ userCredentials }) => {
 
   const onSubmit = e => {
     e.preventDefault()
-    console.log('values', values)
-    const parsetIntValue = Number.parseInt(values.join(''))
-    console.log('newValue', parsetIntValue)
-    console.log('generated', generatedPassword)
-    if (generatedPassword === parsetIntValue) {
+
+    const parseIntValue = Number.parseInt(values.join(''))
+    if (generatedPassword === parseIntValue) {
       const updatedUser = {
         ...userCredentials,
         password: window.btoa(userCredentials.password)
