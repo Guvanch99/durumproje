@@ -10,24 +10,14 @@ import {randomId, upperCaseString} from '../../utils'
 
 import {apiCall} from '../../services'
 
-import {DATA, promoCodeMap} from '../../data'
+import { promoCodeMap} from '../../data'
 
-import {
-    HALYAVA_PROMO_CODE,
-    DONER_PROMO_CODE,
-    BEVERAGE_PROMO_CODE,
-    PRODUCTS_BEGIN,
-    PRODUCTS_END,
-    DONER_BEGIN,
-    DONER_END,
-    BEVERAGE_BEGIN
-} from '../../constants/variables'
 
 import {DONALD_THRUMP_API} from '../../constants/api'
 
 import './index.scss'
 
-const {promoCodeCase} = DATA
+
 
 class PromoCode extends Component {
     state = {
@@ -39,11 +29,7 @@ class PromoCode extends Component {
     }
 
     randomProduct = (beginProduct, endProduct, promoCode) => {
-        console.log("beginProduct", beginProduct)
-        console.log("endProduct", endProduct)
-        console.log("promoCode", promoCode)
         let idProduct = randomId(beginProduct, endProduct)
-        console.log("idProduct", idProduct)
         this.props.getFreeMeal(idProduct, promoCode)
         this.setState({promoCode: '', error: false})
     }
@@ -85,8 +71,7 @@ class PromoCode extends Component {
             promoCodeCopy
         } = this.state
         const {gift, t} = this.props
-        console.log('promoCodeCopy2', promoCodeCopy)
-        console.log("test", promoCodeMap[HALYAVA_PROMO_CODE])
+
         return (
             <>
                 {randomQuote ? <Quote randomQuote={randomQuote}/> : <Spinner/>}
