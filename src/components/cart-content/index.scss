@@ -1,0 +1,29 @@
+@import 'src/styles/common.scss';
+
+.cart-content {
+  @include flex(normal, normal);
+  flex-direction: column;
+  flex: 1;
+  @include fontFamily($fontStyleScript);
+
+  &__links {
+    margin: 2rem 3rem;
+    @include flex(space-between, center);
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  &__buttonClear {
+    @extend %button;
+    @include fontFamily($fontStyleScript);
+    background-color: $lighterBlackColor;
+    color: $whiteColor;
+    border-radius: 10%;
+
+    @include mobile {
+      margin-top: 1rem;
+    }
+  }
+}
