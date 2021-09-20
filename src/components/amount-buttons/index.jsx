@@ -25,6 +25,8 @@ const AmountButtons = ({ amount, increase, decrease, styleTable }) => (
   </div>
 )
 
+export default memo(AmountButtons)
+
 AmountButtons.propTypes = {
   amount: PropTypes.number.isRequired,
   increase: PropTypes.func.isRequired,
@@ -34,6 +36,4 @@ AmountButtons.propTypes = {
 AmountButtons.defaultProps = {
   styleTable: false
 }
-
-export default memo(AmountButtons)
 

@@ -5,6 +5,14 @@
   flex-direction: column;
   margin: 2rem;
 
+  &__error {
+    font-size: 2em;
+    color: $lighterRedColor;
+    @include fontFamily($fontDancingScript);
+    text-align: center;
+    margin-top: 1rem;
+  }
+
   &__label {
     @include fontFamily($fontRoboto);
     font-size: 2.6em;

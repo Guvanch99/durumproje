@@ -15,14 +15,14 @@ const Modal = ({ modalVisibility }) => {
     modalVisibility(true)
     history.push(ROUTER_HOME)
   }
-let timeDelivery=moment().add(30, 'm').format('hh:mm').toString()
+  let timeDelivery = moment().add(30, 'm').format('hh:mm').toString()
   return (
     <div className="modal-wrapper">
       <div className="modal" onClick={closeModal}>
         <h1 className="modal__label">{t('modal')}</h1>
         <i className="far fa-check-circle modal__success-icon" />
-        <h2 className='modal__time'>{t('deliveryTime',{timeDelivery})}</h2>
-        <h3 className='modal__delivery-text'>{t('lateDelivery')}</h3>
+        <h2 className="modal__time">{t('deliveryTime', { timeDelivery })}</h2>
+        <h3 className="modal__delivery-text">{t('lateDelivery')}</h3>
         <button onClick={closeModal} className="modal__button">
           {t('close')}
         </button>
@@ -32,8 +32,9 @@ let timeDelivery=moment().add(30, 'm').format('hh:mm').toString()
   )
 }
 
+export default memo(Modal)
+
 Modal.propTypes = {
   modalVisibility: PropTypes.func.isRequired
 }
 
-export default memo(Modal)

@@ -10,18 +10,24 @@ import { randomId, upperCaseString } from '../../utils'
 
 import { apiCall } from '../../services'
 
+import { DATA } from '../../data'
+
 import {
   HALYAVA_PROMO_CODE,
   DONER_PROMO_CODE,
   BEVERAGE_PROMO_CODE,
   PRODUCTS_BEGIN,
-  PRODUCTS_END, DONER_BEGIN, DONER_END, BEVERAGE_BEGIN
+  PRODUCTS_END,
+  DONER_BEGIN,
+  DONER_END,
+  BEVERAGE_BEGIN
 } from '../../constants/variables'
 
 import { DONALD_THRUMP_API } from '../../constants/api'
 
 import './index.scss'
 
+const { promoCodeCase } = DATA
 
 class PromoCode extends Component {
   state = {
@@ -44,7 +50,12 @@ class PromoCode extends Component {
     let promoCodeUppercase = upperCaseString(promoCode)
 
     if (this.props.restrictedPromoCodes.includes(promoCodeUppercase)) {
-      this.setState({ promoCodeCopy:promoCodeUppercase, isPromoUsed: true, error: true, promoCode: '' })
+      this.setState({
+        promoCodeCopy: promoCodeUppercase,
+        isPromoUsed: true,
+        error: true,
+        promoCode: ''
+      })
     } else {
       switch (promoCodeUppercase) {
         case HALYAVA_PROMO_CODE:
@@ -65,32 +76,40 @@ class PromoCode extends Component {
   async componentDidMount() {
     const { value } = await apiCall(DONALD_THRUMP_API)
     this.setState({ randomQuote: value })
-
   }
 
-  handleChange = ({ target }) => this.setState({ isPromoUsed: false, promoCode: target.value })
-
+  handleChange = ({ target }) =>
+    this.setState({ isPromoUsed: false, promoCode: target.value })
 
   render() {
-    const { promoCode, error, randomQuote, isPromoUsed, promoCodeCopy } = this.state
+    const {
+      promoCode,
+      error,
+      randomQuote,
+      isPromoUsed,
+      promoCodeCopy
+    } = this.state
     const { gift, t } = this.props
     console.log('promoCodeCopy2', promoCodeCopy)
     return (
       <>
         {randomQuote ? <Quote randomQuote={randomQuote} /> : <Spinner />}
-        {isPromoUsed ?
-          <h1 className='promo-used'>{t('promoCode.usedPromoCode', { promoCode: promoCodeCopy })}</h1> : null}
-        <div className='promoCode'>
-          <form className='promoCode-form' onSubmit={this.promoCodeSubmit}>
-            <label className='promoCode-form__label'>
+        {isPromoUsed ? (
+          <h1 className="promo-used">
+            {t('promoCode.usedPromoCode', { promoCode: promoCodeCopy })}
+          </h1>
+        ) : null}
+        <div className="promoCode">
+          <form className="promoCode-form" onSubmit={this.promoCodeSubmit}>
+            <label className="promoCode-form__label">
               {t('promoCode.label')}
             </label>
 
             <input
               value={promoCode}
               onChange={this.handleChange}
-              className='promoCode-form__input'
-              type='text'
+              className="promoCode-form__input"
+              type="text"
               placeholder={
                 error
                   ? t('promoCode.placeholderError')
@@ -98,20 +117,30 @@ class PromoCode extends Component {
               }
             />
 
-            <button disabled={gift.length>0} className='promoCode-form__submit'>
-              {gift.length>0 ? t('promoCode.buttonDisabled'):t('promoCode.buttonSubmit')}
+            <button
+              disabled={gift.length > 0}
+              className="promoCode-form__submit"
+            >
+              {gift.length > 0
+                ? t('promoCode.buttonDisabled')
+                : t('promoCode.buttonSubmit')}
             </button>
           </form>
-          {gift.length>0 ? <PromoCodeGift present={gift} /> : <Spinner />}
+          {gift.length > 0 ? <PromoCodeGift present={gift} /> : <Spinner />}
         </div>
       </>
     )
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({ getFreeMeal: (id, promo) => dispatch(getPresentPromo(id, promo)) })
+const mapDispatchToProps = dispatch => ({
+  getFreeMeal: (id, promo) => dispatch(getPresentPromo(id, promo))
+})
 
-const mapStateToProps = ({ cart: { gift, restrictedPromoCodes }, auth: { user } }) => ({
+const mapStateToProps = ({
+  cart: { gift, restrictedPromoCodes },
+  auth: { user }
+}) => ({
   gift,
   restrictedPromoCodes,
   user

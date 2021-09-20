@@ -229,7 +229,8 @@
       "textInfo": "We have sent validation code to",
       "question": "Not received code?",
       "resend": "Resend",
-      "send": "send"
+      "send": "send",
+      "error": "Confirmation password doesnt valid "
    },
    "products":{
       "1":{

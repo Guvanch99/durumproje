@@ -1,12 +1,11 @@
 import { useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { useTranslation } from 'react-i18next'
 
-import { ArticleName, Input } from '../../../components'
+import { ArticleName, Input, TwoFactorAuth } from '../../../components'
 
-import { createUser } from '../../../redux/auth/actionCreator'
+import { twoFactorAuth } from '../../../redux/auth/actionCreator'
 
 import { EMAIL_VALIDATION } from '../../../constants/regexes'
 
@@ -27,12 +26,11 @@ const Register = () => {
   })
   const { userName, email, password } = userCredentials
 
-  const { userExist } = useSelector(state => state.auth)
+  const { userExist, isTwoFactorAuth } = useSelector(state => state.auth)
   const { t } = useTranslation('translation')
 
   const dispatch = useDispatch()
-  const history = useHistory()
-  const location = useLocation()
+
   const isButtonDisabled =
     !userName ||
     !email ||
@@ -101,46 +99,47 @@ const Register = () => {
 
   const register = e => {
     e.preventDefault()
-
-    const updatedUser = {
-      ...userCredentials,
-      password: window.btoa(password)
-    }
-    dispatch(createUser(updatedUser, location, history))
+    dispatch(twoFactorAuth(userCredentials))
   }
 
   return (
-    <div className="auth">
-      <ArticleName name={t('articleNames.signUp')} />
-      {userExist ? (
-        <h1 className="auth__error">{t('registration.registered')}</h1>
-      ):null}
-      <form className="form">
-        {CREDENTIALS_DATA.map(
-          ({ name, value, label, error, type, functionError }, index) => (
-            <Input
-              key={index}
-              name={name}
-              value={value}
-              label={t(label)}
-              error={t(error)}
-              type={type}
-              onChange={handleChange}
-              required={true}
-              handleBlur={functionError}
-            />
-          )
-        )}
-        <button
-          type="submit"
-          onClick={register}
-          className="form__button"
-          disabled={isButtonDisabled}
-        >
-          {t('registration.button')}
-        </button>
-      </form>
-    </div>
+    <>
+      {isTwoFactorAuth ? (
+        <TwoFactorAuth userCredentials={userCredentials} />
+      ) : (
+        <div className="auth">
+          <ArticleName name={t('articleNames.signUp')} />
+          {userExist ? (
+            <h1 className="auth__error">{t('registration.registered')}</h1>
+          ) : null}
+          <form className="form">
+            {CREDENTIALS_DATA.map(
+              ({ name, value, label, error, type, functionError }, index) => (
+                <Input
+                  key={index}
+                  name={name}
+                  value={value}
+                  label={t(label)}
+                  error={t(error)}
+                  type={type}
+                  onChange={handleChange}
+                  required={true}
+                  handleBlur={functionError}
+                />
+              )
+            )}
+            <button
+              type="submit"
+              onClick={register}
+              className="form__button"
+              disabled={isButtonDisabled}
+            >
+              {t('registration.button')}
+            </button>
+          </form>
+        </div>
+      )}
+    </>
   )
 }
 

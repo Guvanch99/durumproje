@@ -23,10 +23,9 @@ const Accordion = ({ label, description }) => {
   )
 }
 
+export default Accordion
+
 Accordion.propTypes = {
   label: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 }
-
-export default Accordion
-

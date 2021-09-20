@@ -1,16 +1,5 @@
 {
   "users": [
-    {
-      "id": "3b51743a-1633-4ec0-a9f2-2088344970b8",
-      "userName": "Guwa1",
-      "email": "awed@gmail.com",
-      "password": "R3V2YW5jaDk5",
-      "restrictedPromoCodes": [
-        "HALYAVA",
-        "DONER",
-        "BEVERAGE"
-      ]
-    }
   ],
   "orders": [],
   "gallery": [

@@ -50,10 +50,11 @@ const Sidebar = ({ sidebarVisibilityToggle, lang, changeLanguageHandler }) => {
   )
 }
 
+export default memo(Sidebar)
+
 Sidebar.propTypes = {
   sidebarVisibilityToggle: PropTypes.func.isRequired,
   lang: PropTypes.string,
   changeLanguageHandler: PropTypes.func
 }
 
-export default memo(Sidebar)

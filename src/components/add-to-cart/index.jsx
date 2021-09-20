@@ -51,8 +51,8 @@ const AddToCart = ({ singleProduct }) => {
   )
 }
 
+export default AddToCart
+
 AddToCart.propTypes = {
   singleProduct: PropTypes.object.isRequired
 }
-
-export default AddToCart

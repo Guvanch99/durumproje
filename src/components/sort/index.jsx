@@ -64,7 +64,7 @@ const Sort = ({ view, viewHandler }) => {
         <h2 className="menu-count">
           {t('menuCount', { count: filteredProducts.length })}
         </h2>
-      ):null}
+      ) : null}
       <form className="sort-form">
         <label className="sort-form__label" htmlFor="sort">
           {t('sort.sortLabel')}
@@ -91,9 +91,9 @@ const Sort = ({ view, viewHandler }) => {
   )
 }
 
+export default memo(Sort)
+
 Sort.propTypes = {
   view: PropTypes.bool.isRequired,
   viewHandler: PropTypes.func.isRequired
 }
-
-export default memo(Sort)

@@ -27,28 +27,28 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
   }
 
   return (
-    <ul className='menu'>
-      <li className='menu__list'>
+    <ul className="menu">
+      <li className="menu__list">
         <NavLink
           onClick={sidebarVisibilityToggle}
-          className='menu__list-link'
+          className="menu__list-link"
           to={ROUTER_CART}
         >
           {t('menuAuthCart.cart.name')}
           <i className={`fas fa-cart-plus menu__list-icon`} />
-          <span className='order-count'>{totalItems}</span>
+          <span className="order-count">{totalItems}</span>
         </NavLink>
       </li>
       {user ? (
-        <button onClick={logout} className='logout'>
+        <button onClick={logout} className="logout">
           {t('logout')}
         </button>
       ) : (
         menuAuthCart.map(({ url, keyName, iconName }, idx) => (
-          <li key={idx} className='menu__list'>
+          <li key={idx} className="menu__list">
             <NavLink
               onClick={sidebarVisibilityToggle}
-              className='menu__list-link'
+              className="menu__list-link"
               to={{ pathname: url, state: { from: location.pathname } }}
             >
               {t(`menuAuthCart.${keyName}.name`)}
@@ -61,8 +61,9 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
   )
 }
 
+export default memo(MenuAuthCart)
+
 MenuAuthCart.propTypes = {
   sidebarVisibilityToggle: PropTypes.func
 }
 
-export default memo(MenuAuthCart)

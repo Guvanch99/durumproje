@@ -35,8 +35,8 @@ const ListView = ({ products }) => {
   )
 }
 
+export default memo(ListView)
+
 ListView.propTypes = {
   products: PropTypes.array.isRequired
 }
-
-export default memo(ListView)

@@ -7,6 +7,17 @@ import {
   ROUTER_SIGN_UP
 } from './constants/routers'
 
+import {
+  BEVERAGE_BEGIN,
+  BEVERAGE_PROMO_CODE,
+  DONER_BEGIN,
+  DONER_END,
+  DONER_PROMO_CODE,
+  HALYAVA_PROMO_CODE,
+  PRODUCTS_BEGIN,
+  PRODUCTS_END
+} from './constants/variables'
+
 export const DATA = {
   links: [
     {
@@ -26,6 +37,7 @@ export const DATA = {
       keyName: 'promotions'
     }
   ],
+
   menuAuthCart: [
     {
       url: ROUTER_LOGIN,
@@ -38,6 +50,7 @@ export const DATA = {
       iconName: 'fa-user-plus'
     }
   ],
+
   sortOptions: [
     {
       value: '',
@@ -60,18 +73,22 @@ export const DATA = {
       keyName: 'nameZA'
     }
   ],
+
   images: [
     {
-      url: 'https://images.pexels.com/photos/5779368/pexels-photo-5779368.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      url:
+        'https://images.pexels.com/photos/5779368/pexels-photo-5779368.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       text: 'Meat'
     },
     {
-      url: 'https://images.pexels.com/photos/5779423/pexels-photo-5779423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      url:
+        'https://images.pexels.com/photos/5779423/pexels-photo-5779423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       text: 'Shawarma'
     },
 
     {
-      url: 'https://images.pexels.com/photos/5779372/pexels-photo-5779372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      url:
+        'https://images.pexels.com/photos/5779372/pexels-photo-5779372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       text: 'cutting shawarma'
     }
   ],
@@ -121,6 +138,23 @@ export const DATA = {
     ]
   ],
 
+  promoCodeCase: [
+    {
+      promoCode: HALYAVA_PROMO_CODE,
+      productsBegin: PRODUCTS_BEGIN,
+      productsEnd: PRODUCTS_END
+    },
+    {
+      promoCode: DONER_PROMO_CODE,
+      productsBegin: DONER_BEGIN,
+      productsEnd: DONER_END
+    },
+    {
+      promoCode: BEVERAGE_PROMO_CODE,
+      productsBegin: BEVERAGE_BEGIN,
+      productsEnd: PRODUCTS_END
+    }
+  ],
   buttonTranslateKeys: ['All', 'Combo', 'Durum', 'Beverage'],
 
   tableNameTranslateKeys: [
@@ -143,7 +177,10 @@ export const DATA = {
 
   mottoImage:
     'https://thumbs.dreamstime.com/b/food-delivery-man-motorcycle-isolated-white-background-helmet-yellow-moped-vector-illustration-214857732.jpg',
+
   logo: 'https://i.ibb.co/TvkqJHJ/logo.png',
+
   mostLovedFoodImage: 'https://i.ibb.co/TMjP3zN/Doner.png',
+
   promoImage: 'https://i.ibb.co/s5S4LQq/promo.png'
 }

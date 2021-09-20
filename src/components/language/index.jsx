@@ -27,8 +27,9 @@ const Language = ({ changeLanguageHandler }) => {
   )
 }
 
+export default Language
+
 Language.propTypes = {
   changeLanguageHandler: PropTypes.func.isRequired
 }
 
-export default Language

@@ -23,12 +23,14 @@ const PageHero = ({ title, menu }) => {
               {t('pageHero.menu')}{' '}
             </NavLink>
           </>
-        ):null}
+        ) : null}
         <span className="section__sign">&gt;</span> {title}
       </h1>
     </section>
   )
 }
+
+export default memo(PageHero)
 
 PageHero.propTypes = {
   title: PropTypes.string.isRequired,
@@ -38,5 +40,3 @@ PageHero.propTypes = {
 PageHero.defaultProps = {
   menu: false
 }
-
-export default memo(PageHero)

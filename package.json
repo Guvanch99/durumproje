@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "emailjs-com": "^3.2.0",
     "i18next": "^20.3.5",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.2.8",
@@ -32,12 +33,24 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server -p 5000 --watch src/db/db.json"
+    "json-server": "json-server -p 5000 --watch src/db/db.json",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -53,6 +66,12 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/node-logger": "^6.3.8",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.8",
     "redux-logger": "^3.0.6"
   }
 }

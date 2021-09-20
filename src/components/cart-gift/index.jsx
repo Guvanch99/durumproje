@@ -9,28 +9,30 @@ const CartGift = ({ gift }) => {
 
   return (
     <>
-    <h1 className="cart__label">{t('cartGift.label')}</h1>
-    <div className="cart-gift">
-      {gift.map(({src,name,amount},index)=>(
-        <div key={index} className="cart-gift__container">
-          <img src={src} alt={name} className="cart-gift__image" />
+      <h1 className="cart__label">{t('cartGift.label')}</h1>
+      <div className="cart-gift">
+        {gift.map(({ src, name, amount }, index) => (
+          <div key={index} className="cart-gift__container">
+            <img src={src} alt={name} className="cart-gift__image" />
 
-          <h1 className="cart-gift__name">
-            {t('cartGift.yourGift')}
-            <span className="cart-gift__name-color">{t(name)}</span>
-          </h1>
+            <h1 className="cart-gift__name">
+              {t('cartGift.yourGift')}
+              <span className="cart-gift__name-color">{t(name)}</span>
+            </h1>
 
-          <h1 className="cart-gift__amount">
-            {t('cartGift.amount')}
-            {'  '}
-            <span className="cart-gift__amount-color">{t(amount)}</span>
-          </h1>
-        </div>
-      ))}
-    </div>
+            <h1 className="cart-gift__amount">
+              {t('cartGift.amount')}
+              {'  '}
+              <span className="cart-gift__amount-color">{t(amount)}</span>
+            </h1>
+          </div>
+        ))}
+      </div>
     </>
   )
 }
+
+export default memo(CartGift)
 
 CartGift.propTypes = {
   gift: PropTypes.shape({
@@ -40,5 +42,4 @@ CartGift.propTypes = {
   })
 }
 
-export default memo(CartGift)
 

@@ -1,28 +1,36 @@
 import PropTypes from 'prop-types'
 
-const TwoFactorAuthInput = ({ name, value, handleChange,onkeydown }) => (
-
+const TwoFactorAuthInput = ({
+  name,
+  handleChange,
+  inputRefs,
+  handleDelete,
+  value
+}) => (
   <input
-    type='tel'
-    name={name}
-    value={value}
+    type="tel"
     min={0}
     max={9}
-    step='1'
-    placeholder='·'
-    maxLength='1'
-    onChange={handleChange}
-    autoComplete='one-time-code'
-    className='twoFactorAuth__input'
-    onKeyDown={onkeydown}
+    step="1"
+    placeholder="·"
+    maxLength="6"
+    autoComplete="one-time-code"
+    className="twoFactorAuth__input"
+    name={name}
+    value={value}
+    ref={input => (inputRefs[name] = input)}
+    onChange={e => handleChange(e, name)}
+    onKeyDown={e => handleDelete(e, name)}
   />
 )
 
-TwoFactorAuthInput.propTypes={
-  name:PropTypes.string.isRequired,
-  value:PropTypes.string.isRequired,
-  handleChange:PropTypes.func.isRequired,
-  onKeyDown:PropTypes.func
-}
-
 export default TwoFactorAuthInput
+
+TwoFactorAuthInput.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  inputRefs: PropTypes.array.isRequired,
+  name: PropTypes.number.isRequired,
+  value: PropTypes.string,
+  handleBackspace: PropTypes.func,
+  onPaste: PropTypes.func
+}

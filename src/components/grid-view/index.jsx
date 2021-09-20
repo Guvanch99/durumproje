@@ -1,4 +1,4 @@
-import {memo} from 'react'
+import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
@@ -32,9 +32,8 @@ const GridView = ({ products }) => {
   )
 }
 
+export default memo(GridView)
+
 GridView.propTypes = {
   products: PropTypes.array.isRequired
 }
-
-export default memo(GridView)
-

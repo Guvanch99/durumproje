@@ -3,15 +3,21 @@ import {
   LOGOUT,
   USER_EXIST,
   USER_NOT_FOUND,
-  LOGIN_USER, MODAL_ERROR_TOGGLE, TWO_FACTOR_AUTH_TOGGLE
+  LOGIN_USER,
+  MODAL_ERROR_TOGGLE,
+  TWO_FACTOR_AUTH_TOGGLE,
+  GET_GENERATED_PASSWORD,
+  TWO_FACTOR_AUTH_ERROR
 } from './type'
 
 const initialState = {
   user: null,
   userExist: false,
   userNotFound: false,
-  isModalPromoError:false,
-  isTwoFactorAuth:false
+  isModalPromoError: false,
+  isTwoFactorAuth: false,
+  generatedPassword: null,
+  twoFactorAuthInvalid: false
 }
 
 export const authReducer = (state = initialState, { type, payload }) => {
@@ -29,9 +35,13 @@ export const authReducer = (state = initialState, { type, payload }) => {
     case LOGOUT:
       return { ...state, user: null }
     case MODAL_ERROR_TOGGLE:
-      return {...state,isModalPromoError: !state.isModalPromoError}
+      return { ...state, isModalPromoError: !state.isModalPromoError }
     case TWO_FACTOR_AUTH_TOGGLE:
-      return {...state,isTwoFactorAuth: !state.isTwoFactorAuth}
+      return { ...state, isTwoFactorAuth: !state.isTwoFactorAuth }
+    case GET_GENERATED_PASSWORD:
+      return { ...state, generatedPassword: payload }
+    case TWO_FACTOR_AUTH_ERROR:
+      return { ...state, twoFactorAuthInvalid: true }
     default:
       return state
   }
