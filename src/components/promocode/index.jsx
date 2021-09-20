@@ -1,151 +1,147 @@
-import { Component } from 'react'
-import { connect } from 'react-redux'
-import { withTranslation } from 'react-i18next'
+import {Component} from 'react'
+import {connect} from 'react-redux'
+import {withTranslation} from 'react-i18next'
 
-import { PromoCodeGift, Spinner, Quote } from '..'
+import {PromoCodeGift, Spinner, Quote} from '..'
 
-import { getPresentPromo } from '../../redux/cart/actionCreators'
+import {getPresentPromo} from '../../redux/cart/actionCreators'
 
-import { randomId, upperCaseString } from '../../utils'
+import {randomId, upperCaseString} from '../../utils'
 
-import { apiCall } from '../../services'
+import {apiCall} from '../../services'
 
-import { DATA } from '../../data'
+import {DATA, promoCodeMap} from '../../data'
 
 import {
-  HALYAVA_PROMO_CODE,
-  DONER_PROMO_CODE,
-  BEVERAGE_PROMO_CODE,
-  PRODUCTS_BEGIN,
-  PRODUCTS_END,
-  DONER_BEGIN,
-  DONER_END,
-  BEVERAGE_BEGIN
+    HALYAVA_PROMO_CODE,
+    DONER_PROMO_CODE,
+    BEVERAGE_PROMO_CODE,
+    PRODUCTS_BEGIN,
+    PRODUCTS_END,
+    DONER_BEGIN,
+    DONER_END,
+    BEVERAGE_BEGIN
 } from '../../constants/variables'
 
-import { DONALD_THRUMP_API } from '../../constants/api'
+import {DONALD_THRUMP_API} from '../../constants/api'
 
 import './index.scss'
 
-const { promoCodeCase } = DATA
+const {promoCodeCase} = DATA
 
 class PromoCode extends Component {
-  state = {
-    promoCode: '',
-    error: false,
-    isPromoUsed: false,
-    randomQuote: '',
-    promoCodeCopy: ''
-  }
-  randomProduct = (beginProduct, endProduct, promoCode) => {
-    let idProduct = randomId(beginProduct, endProduct)
-    this.props.getFreeMeal(idProduct, promoCode)
-    this.setState({ promoCode: '', error: false })
-  }
-
-  promoCodeSubmit = e => {
-    e.preventDefault()
-    const { promoCode } = this.state
-    this.setState({ error: false })
-    let promoCodeUppercase = upperCaseString(promoCode)
-
-    if (this.props.restrictedPromoCodes.includes(promoCodeUppercase)) {
-      this.setState({
-        promoCodeCopy: promoCodeUppercase,
-        isPromoUsed: true,
-        error: true,
-        promoCode: ''
-      })
-    } else {
-      switch (promoCodeUppercase) {
-        case HALYAVA_PROMO_CODE:
-          this.randomProduct(PRODUCTS_BEGIN, PRODUCTS_END, HALYAVA_PROMO_CODE)
-          break
-        case DONER_PROMO_CODE:
-          this.randomProduct(DONER_BEGIN, DONER_END, DONER_PROMO_CODE)
-          break
-        case BEVERAGE_PROMO_CODE:
-          this.randomProduct(BEVERAGE_BEGIN, PRODUCTS_END, BEVERAGE_PROMO_CODE)
-          break
-        default:
-          this.setState({ error: true })
-      }
+    state = {
+        promoCode: '',
+        error: false,
+        isPromoUsed: false,
+        randomQuote: '',
+        promoCodeCopy: ''
     }
-  }
 
-  async componentDidMount() {
-    const { value } = await apiCall(DONALD_THRUMP_API)
-    this.setState({ randomQuote: value })
-  }
+    randomProduct = (beginProduct, endProduct, promoCode) => {
+        console.log("beginProduct", beginProduct)
+        console.log("endProduct", endProduct)
+        console.log("promoCode", promoCode)
+        let idProduct = randomId(beginProduct, endProduct)
+        console.log("idProduct", idProduct)
+        this.props.getFreeMeal(idProduct, promoCode)
+        this.setState({promoCode: '', error: false})
+    }
 
-  handleChange = ({ target }) =>
-    this.setState({ isPromoUsed: false, promoCode: target.value })
+    promoCodeSubmit = e => {
+        e.preventDefault()
+        const {promoCode} = this.state
+        this.setState({error: false})
+        let promoCodeUppercase = upperCaseString(promoCode)
 
-  render() {
-    const {
-      promoCode,
-      error,
-      randomQuote,
-      isPromoUsed,
-      promoCodeCopy
-    } = this.state
-    const { gift, t } = this.props
-    console.log('promoCodeCopy2', promoCodeCopy)
-    return (
-      <>
-        {randomQuote ? <Quote randomQuote={randomQuote} /> : <Spinner />}
-        {isPromoUsed ? (
-          <h1 className="promo-used">
-            {t('promoCode.usedPromoCode', { promoCode: promoCodeCopy })}
-          </h1>
-        ) : null}
-        <div className="promoCode">
-          <form className="promoCode-form" onSubmit={this.promoCodeSubmit}>
-            <label className="promoCode-form__label">
-              {t('promoCode.label')}
-            </label>
+        if (this.props.restrictedPromoCodes.includes(promoCodeUppercase)) {
+            this.setState({
+                promoCodeCopy: promoCodeUppercase,
+                isPromoUsed: true,
+                error: true,
+                promoCode: ''
+            })
+        } else {
+            promoCodeMap[promoCodeUppercase] ?
+                this.randomProduct(promoCodeMap[promoCodeUppercase].productsBegin, promoCodeMap[promoCodeUppercase].productsEnd, promoCodeMap[promoCodeUppercase]) :
+                this.setState({error: true, promoCode: ''})
+        }
+    }
 
-            <input
-              value={promoCode}
-              onChange={this.handleChange}
-              className="promoCode-form__input"
-              type="text"
-              placeholder={
-                error
-                  ? t('promoCode.placeholderError')
-                  : t('promoCode.placeholderDefault')
-              }
-            />
+    async componentDidMount() {
+        const {value} = await apiCall(DONALD_THRUMP_API)
+        this.setState({randomQuote: value})
+    }
 
-            <button
-              disabled={gift.length > 0}
-              className="promoCode-form__submit"
-            >
-              {gift.length > 0
-                ? t('promoCode.buttonDisabled')
-                : t('promoCode.buttonSubmit')}
-            </button>
-          </form>
-          {gift.length > 0 ? <PromoCodeGift present={gift} /> : <Spinner />}
-        </div>
-      </>
-    )
-  }
+    handleChange = ({target}) =>
+        this.setState({isPromoUsed: false, promoCode: target.value})
+
+    render() {
+        const {
+            promoCode,
+            error,
+            randomQuote,
+            isPromoUsed,
+            promoCodeCopy
+        } = this.state
+        const {gift, t} = this.props
+        console.log('promoCodeCopy2', promoCodeCopy)
+        console.log("test", promoCodeMap[HALYAVA_PROMO_CODE])
+        return (
+            <>
+                {randomQuote ? <Quote randomQuote={randomQuote}/> : <Spinner/>}
+                {isPromoUsed ? (
+                    <h1 className="promo-used">
+                        {t('promoCode.usedPromoCode', {promoCode: promoCodeCopy})}
+                    </h1>
+                ) : null}
+                <div className="promoCode">
+                    <form className="promoCode-form" onSubmit={this.promoCodeSubmit}>
+                        <label className="promoCode-form__label">
+                            {t('promoCode.label')}
+                        </label>
+
+                        <input
+                            value={promoCode}
+                            onChange={this.handleChange}
+                            className="promoCode-form__input"
+                            type="text"
+                            placeholder={
+                                error
+                                    ? t('promoCode.placeholderError')
+                                    : t('promoCode.placeholderDefault')
+                            }
+                        />
+
+                        <button
+                            disabled={gift.length > 0}
+                            className="promoCode-form__submit"
+                        >
+                            {gift.length > 0
+                                ? t('promoCode.buttonDisabled')
+                                : t('promoCode.buttonSubmit')}
+                        </button>
+                    </form>
+                    {gift.length > 0 ? <PromoCodeGift present={gift}/> : <Spinner/>}
+                </div>
+            </>
+        )
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getFreeMeal: (id, promo) => dispatch(getPresentPromo(id, promo))
+    getFreeMeal: (id, promo) => dispatch(getPresentPromo(id, promo))
 })
 
 const mapStateToProps = ({
-  cart: { gift, restrictedPromoCodes },
-  auth: { user }
-}) => ({
-  gift,
-  restrictedPromoCodes,
-  user
+                             cart: {gift, restrictedPromoCodes},
+                             auth: {user}
+                         }) => ({
+    gift,
+    restrictedPromoCodes,
+    user
 })
 
 export default withTranslation()(
-  connect(mapStateToProps, mapDispatchToProps)(PromoCode)
+    connect(mapStateToProps, mapDispatchToProps)(PromoCode)
 )

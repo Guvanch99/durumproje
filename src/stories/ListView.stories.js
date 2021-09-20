@@ -1,4 +1,6 @@
 import React from 'react'
+import {MemoryRouter} from 'react-router-dom';
+
 import ListView from '../components/list-view'
 
 
@@ -6,7 +8,7 @@ export default {
     title: 'ListView',
     component: ListView
 }
-const products=[
+const products = [
     {
         "id": 1,
         "name": "products.1.name",
@@ -64,4 +66,7 @@ const products=[
         "type": "durum"
     }
 ]
-export const FewItems = () => <ListView products={products}/>
+export const FewItems = () =>(
+    <MemoryRouter>
+        <ListView products={products}/>
+    </MemoryRouter>)

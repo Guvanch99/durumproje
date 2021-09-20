@@ -9,3 +9,4 @@ export const modifiedEmail = email => {
   return firstThreeLetters + '......@' + afterAt
 }
 export const generatePassword = () => Math.floor(Math.random() * 1000000 + 1)
+
