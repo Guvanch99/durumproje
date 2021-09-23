@@ -12,7 +12,6 @@
     "i18next": "^20.3.5",
     "i18next-browser-languagedetector": "^6.1.2",
     "i18next-http-backend": "^1.2.8",
-    "json-server": "^0.16.3",
     "moment": "^2.29.1",
     "node-sass": "^6.0.1",
     "prop-types": "^15.7.2",
@@ -33,7 +32,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server -p 5000 --watch src/db/db.json",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
