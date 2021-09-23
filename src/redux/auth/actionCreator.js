@@ -80,6 +80,7 @@ export const loginUser = (userName, password, location, history) => async (
   const { data: users } = await DB(
     `/users?userName=${userName}&password=${password}`
   )
+if(users.length>0) {
   const {
     cart: { gift, restrictedPromoCodes: promoCodes }
   } = getState()
@@ -106,10 +107,13 @@ export const loginUser = (userName, password, location, history) => async (
   dispatch(updateRestrictedPromoCodes(data.restrictedPromoCodes))
 
   if (intersectionPromoCode.length === 0) {
+    console.log(location)
     location.state !== null && location.state.from === ROUTER_SIGN_UP
       ? history.push(ROUTER_HOME)
       : history.goBack()
   }
+}else
+  dispatch(userNotFound())
 }
 
 export const twoFactorAuth = user => async dispatch => {

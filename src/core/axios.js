@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const DB = axios.create({
-  baseURL: `${process.env.REACT_APP_HOST}`,
+  baseURL: `${process.envREACT_APP_HOST}`,
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json'
