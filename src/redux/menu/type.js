@@ -1,0 +1,3 @@
+export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
+export const ON_CHANGE = 'ON_CHANGE'
+export const FILTER_PRODUCTS = 'FILTER_PRODUCTS'
