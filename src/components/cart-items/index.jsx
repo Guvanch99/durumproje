@@ -28,10 +28,10 @@ const CartItems = ({ id, src, name, amount, price, subTotal }) => {
 
   const tableItems = [
     {
-      children: <img className="items-data__image " alt={name} src={src} />
+      children: <img className='items-data__image ' alt={name} src={src} />
     },
     {
-      children: <p className="items-data__name ">{t(name)}</p>
+      children: <p className='items-data__name '>{t(name)}</p>
     },
     {
       children: (
@@ -45,25 +45,25 @@ const CartItems = ({ id, src, name, amount, price, subTotal }) => {
     },
 
     {
-      children: <h3 className="items-data__price ">{price}</h3>
+      children: <h3 className='items-data__price '>{price}</h3>
     },
     {
-      children: <h3 className="items-data__subtotal ">{subTotal}</h3>
+      children: <h3 className='items-data__subtotal '>{subTotal}</h3>
     },
     {
       children: (
         <button
-          className="items-data__remover "
+          className='items-data__remover '
           onClick={() => removeProductHandler(id)}
         >
-          <i className="fas fa-times" />
+          <i className='fas fa-times' />
         </button>
       )
     }
   ]
 
   return (
-    <tr key={name} className="items-data">
+    <tr key={name} className='items-data'>
       {tableItems.map(({ children }, index) => (
         <td key={index}>{children}</td>
       ))}
@@ -78,7 +78,9 @@ CartItems.propTypes = {
   src: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]),
   subTotal: PropTypes.number.isRequired
 }
 

@@ -15,7 +15,7 @@ const initialState = {
   gift: [],
   totalAmount: 0,
   totalItems: 0,
-  restrictedPromoCodes:[]
+  restrictedPromoCodes: []
 }
 
 export const cartReducer = (state = initialState, { type, payload }) => {
@@ -23,7 +23,7 @@ export const cartReducer = (state = initialState, { type, payload }) => {
     case ADD_TO_CART:
       const {
         amount,
-        singleProduct: { id, price, name, src }
+        singleProduct: { id, price, name, src, type }
       } = payload
 
       const temp = state.cart.find(i => i.id === id)
@@ -46,7 +46,7 @@ export const cartReducer = (state = initialState, { type, payload }) => {
           price,
           amount,
           src,
-          type,
+          type: payload.singleProduct.type,
           subTotal: Math.floor(amount * price)
         }
 
@@ -103,15 +103,15 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       })
       return { ...state, cart: tempCart }
     case GET_PRESENT:
-      return { ...state, gift: [...state.gift,payload] }
+      return { ...state, gift: [...state.gift, payload] }
     case CLEAR_ORDER:
       return { ...state, cart: [], gift: [] }
     case PROMO_CODE_USED:
-      return {...state,restrictedPromoCodes:[...state.restrictedPromoCodes,payload] }
+      return { ...state, restrictedPromoCodes: [...state.restrictedPromoCodes, payload] }
     case UPDATE_RESTRICTED_PROMO_CODE:
-      return  {...state,restrictedPromoCodes:payload}
+      return { ...state, restrictedPromoCodes: payload }
     case UPDATE_GIFT:
-      return  {...state,gift:payload}
+      return { ...state, gift: payload }
     default:
       return state
   }

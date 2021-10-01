@@ -10,5 +10,6 @@ export const BEVERAGE_BEGIN = 10
 export const DONER_BEGIN = 4
 export const DONER_END = 9
 export const THIRD_ELEMENT = 2
-export const INPUT = 'INPUT'
+export const BONUS_COEFFICIENT=0.05
 export const DELETE = 'Backspace'
+export const ZERO=0

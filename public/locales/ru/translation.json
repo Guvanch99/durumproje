@@ -318,6 +318,9 @@
    "menuCount":"Кол-во: {{count}}",
    "deliveryTime": "Время доставки: {{timeDelivery}}",
    "lateDelivery": "если время прошло, возьми бесплатно",
-   "modalError": "Использованные промокоды будут удалены !!!"
-
+   "modalError": "Использованные промокоды будут удалены !!!",
+   "bonus": "Бонус: {{bonus}} руб",
+   "useBonusText": "Write bonus what to use",
+   "bonusZero": "Ошибка",
+   "bonusPlaceholder": "Напишите числа"
 }

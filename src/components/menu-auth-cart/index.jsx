@@ -40,9 +40,13 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
         </NavLink>
       </li>
       {user ? (
+        <>
         <button onClick={logout} className="logout">
           {t('logout')}
         </button>
+          <h2 className='bonus'>{t('bonus', { bonus:user.Bonus })}</h2>
+        </>
+
       ) : (
         menuAuthCart.map(({ url, keyName, iconName }, idx) => (
           <li key={idx} className="menu__list">

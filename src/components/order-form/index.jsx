@@ -14,6 +14,7 @@ import {
 } from '../../constants/regexes'
 
 import './index.scss'
+import { BONUS_COEFFICIENT } from '../../constants/variables'
 
 const OrderForm = () => {
   const { t } = useTranslation('translation')
@@ -21,7 +22,7 @@ const OrderForm = () => {
     auth: { user },
     cart: { cart, gift, totalAmount, totalItems }
   } = useSelector(state => state)
-
+console.log("cart",cart)
   const dispatch = useDispatch()
 
   const [userInfo, setUserInfo] = useState({
@@ -184,7 +185,7 @@ const OrderForm = () => {
   const orderMenu = e => {
     e.preventDefault()
 
-
+console.log("user",user)
     let updatedUser = {
       userName,
       email
@@ -196,8 +197,8 @@ const OrderForm = () => {
       storey,
       payment
     }
-
-
+   let Bonus=Number((totalAmount*BONUS_COEFFICIENT).toFixed(2))
+   let userId=user.id
     const userBought = {
       timeOrder:moment().format('DD MM YYYY hh:mm:ss'),
       deliveryTime: moment().add(30, 'm').format('DD MM YYYY hh:mm:ss'),
@@ -208,7 +209,7 @@ const OrderForm = () => {
       totalItems,
       totalAmount
     }
-    order(userBought)
+    order(userBought,Bonus,userId)
     dispatch(clearOrder())
     setIsModalVisible(true)
   }

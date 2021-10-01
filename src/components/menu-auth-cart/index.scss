@@ -56,3 +56,15 @@
     }
   }
 }
+.bonus{
+  @include fontFamily($fontDancingScript);
+  font-size: 2em;
+  font-weight: lighter;
+  margin-left: 1rem;
+
+  @include mobile {
+    margin: 0;
+    padding: 0 .4rem;
+  }
+
+}
