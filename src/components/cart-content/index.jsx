@@ -8,31 +8,24 @@ import { clearCart } from '../../redux/cart/actionCreators'
 
 import { ROUTER_MENU } from '../../constants/routers'
 
-import { ZERO } from '../../constants/variables'
-
 import './index.scss'
 
 
 const CartContent = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation('translation')
-  const { gift } = useSelector(state => state.cart)
-  const [bonusCount, setBonusCount] = useState('')
+  const { cart: { gift }, auth: { user } } = useSelector(state => state)
+  const [bonusCount, setBonusCount] = useState(user.bonus)
 
-  const handleChange = (e) => {
-    const { target: { value } } = e
-    e.preventDefault()
-    const financialGoal = (e.target.validity.valid) ? value : bonusCount
-    setBonusCount(financialGoal)
+  const handleChange = ({ target: { value } }) => {
+    if (!isNaN(value))
+      setBonusCount(value)
   }
 
   const clearCartHandler = () => {
     dispatch(clearCart())
   }
-  const useBonus = (e) => {
-    e.preventDefault()
 
-  }
   return (
     <div className='cart-content'>
       <CartTable />
@@ -44,14 +37,13 @@ const CartContent = () => {
           direction={ROUTER_MENU}
           name={t('pageLink.continueShopping')}
         />
-        <div className='cart-content__bonus'>
-          <h1>{t('useBonusText')}</h1>
-          <input className='cart-content__input' type='number' min={1} max={5} pattern='[1-9]*' value={bonusCount}
-                 onChange={handleChange}  placeholder={t('bonusPlaceholder')}/>
-          <button className='bonus__button'
-                  disabled={bonusCount===''}
-                  onClick={useBonus}>{bonusCount ==='' ? t('bonusZero') : t('promoCode.buttonSubmit')}</button>
-        </div>
+        {user ? (
+          <div className='cart-content__bonus'>
+            <h1>{t('useBonusText')}</h1>
+            <input maxLength={4} max={9999} className='cart-content__input' type='num' value={bonusCount}
+                   onChange={handleChange} placeholder={t('bonusPlaceholder')} />
+          </div>
+        ) : null}
         <button
           onClick={clearCartHandler}
           className='cart-content__buttonClear'
@@ -59,7 +51,7 @@ const CartContent = () => {
           {t('clear')}
         </button>
       </div>
-      <Payment />
+      <Payment bonus={bonusCount} />
     </div>
   )
 }

@@ -30,7 +30,6 @@ const AddToCart = ({ singleProduct }) => {
   }, [])
 
   const addToCartProduct = () => {
-    console.log("addd",singleProduct)
     const payload = {
       amount,
       singleProduct

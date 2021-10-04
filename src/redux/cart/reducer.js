@@ -7,8 +7,11 @@ import {
   GET_PRESENT,
   CLEAR_ORDER,
   PROMO_CODE_USED,
-  UPDATE_RESTRICTED_PROMO_CODE, UPDATE_GIFT
+  UPDATE_RESTRICTED_PROMO_CODE, UPDATE_GIFT,
+  SUBTRACT_BONUS
 } from './type'
+
+import { SHIPPING_FEE } from '../../constants/variables'
 
 const initialState = {
   cart: [],
@@ -23,7 +26,7 @@ export const cartReducer = (state = initialState, { type, payload }) => {
     case ADD_TO_CART:
       const {
         amount,
-        singleProduct: { id, price, name, src, type }
+        singleProduct: { id, price, name, src }
       } = payload
 
       const temp = state.cart.find(i => i.id === id)
@@ -76,7 +79,8 @@ export const cartReducer = (state = initialState, { type, payload }) => {
         }
       )
       let totalItems = state.gift.length + totalItem
-      return { ...state, totalAmount, totalItems }
+      let totalAll = Number((totalAmount + SHIPPING_FEE).toFixed(2))
+      return { ...state, totalAmount: totalAll, totalItems }
 
     case TOGGLE_CART_PRODUCT_AMOUNT:
       const { inc, dec } = payload
@@ -112,6 +116,8 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       return { ...state, restrictedPromoCodes: payload }
     case UPDATE_GIFT:
       return { ...state, gift: payload }
+    case SUBTRACT_BONUS:
+      return { ...state, totalAmount: state.totalAmount - payload }
     default:
       return state
   }

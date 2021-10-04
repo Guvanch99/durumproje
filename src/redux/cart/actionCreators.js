@@ -10,8 +10,9 @@ import {
   CLEAR_ORDER,
   PROMO_CODE_USED,
   UPDATE_RESTRICTED_PROMO_CODE,
-  UPDATE_GIFT
+  UPDATE_GIFT, SUBTRACT_BONUS
 } from './type'
+import { updateUser } from '../auth/actionCreator'
 
 export const addToCart = payload => ({
   type: ADD_TO_CART,
@@ -32,12 +33,18 @@ export const toggleAmount = payload => ({
   payload
 })
 
+export const subtractBonus = payload => ({
+  type: SUBTRACT_BONUS,
+  payload
+})
+
 export const clearOrder = () => ({ type: CLEAR_ORDER })
 
 export const getPresent = payload => ({
   type: GET_PRESENT,
   payload
 })
+
 export const userPromoCodeUsed = payload => ({ type: PROMO_CODE_USED, payload })
 
 export const updateGift = payload => ({ type: UPDATE_GIFT, payload })
@@ -46,7 +53,7 @@ export const updateRestrictedPromoCodes = (payload) => ({ type: UPDATE_RESTRICTE
 
 export const getPresentPromo = (idProduct, promoCode) => async (dispatch, getState) => {
   const { data } = await DB(`/all-products?id=${idProduct}`)
-  const { auth: { user }, cart: { restrictedPromoCodes } } = getState()
+  const { auth: { user } } = getState()
   const { id, name, src, description, type } = data[0]
   const payload = {
     id,
@@ -69,7 +76,19 @@ export const getPresentPromo = (idProduct, promoCode) => async (dispatch, getSta
   )
 
 }
-export const order = async (orderData, Bonus, id) => {
+export const order = (orderData, newBonus) => async (dispatch, getState) => {
+  const { auth: { user } } = getState()
+  const { id, bonus } = user
+  const bonusModified = Number((bonus + newBonus).toFixed(2))
   await DB.post('/orders', orderData)
-  await DB.patch(`/users/${id}`, { Bonus })
+  DB.patch(`/users/${id}`, { bonus: bonusModified }).then(({ data }) => dispatch(updateUser(data)))
+}
+
+export const usedBonus = bonusCount => (dispatch, getState) => {
+  const { auth: { user } } = getState()
+  const { id, bonus } = user
+  const bonusModified = Number((bonus - bonusCount).toFixed(2))
+  dispatch(subtractBonus(bonusCount))
+  DB.patch(`/users/${id}`, { bonus: bonusModified }).then(({ data }) => dispatch(updateUser(data)))
+
 }

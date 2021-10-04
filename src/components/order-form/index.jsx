@@ -5,16 +5,17 @@ import moment from 'moment'
 
 import { Input, Modal, Portal } from '..'
 
-import { clearOrder,order } from '../../redux/cart/actionCreators'
+import { clearOrder, order } from '../../redux/cart/actionCreators'
 
 import {
   INTEGER_VALIDATION,
   PHONE_VALIDATION,
   INTEGER_AND_ZERO_VALIDATION
 } from '../../constants/regexes'
+import { BONUS_COEFFICIENT } from '../../constants/variables'
 
 import './index.scss'
-import { BONUS_COEFFICIENT } from '../../constants/variables'
+
 
 const OrderForm = () => {
   const { t } = useTranslation('translation')
@@ -22,7 +23,6 @@ const OrderForm = () => {
     auth: { user },
     cart: { cart, gift, totalAmount, totalItems }
   } = useSelector(state => state)
-console.log("cart",cart)
   const dispatch = useDispatch()
 
   const [userInfo, setUserInfo] = useState({
@@ -182,14 +182,14 @@ console.log("cart",cart)
   }
 
 
-  const orderMenu = e => {
+  const orderMenu = async (e) => {
     e.preventDefault()
 
-console.log("user",user)
     let updatedUser = {
       userName,
       email
     }
+
     let address = {
       street,
       house,
@@ -197,10 +197,10 @@ console.log("user",user)
       storey,
       payment
     }
-   let Bonus=Number((totalAmount*BONUS_COEFFICIENT).toFixed(2))
-   let userId=user.id
+    let newBonus = Number((totalAmount * BONUS_COEFFICIENT).toFixed(2))
+
     const userBought = {
-      timeOrder:moment().format('DD MM YYYY hh:mm:ss'),
+      timeOrder: moment().format('DD MM YYYY hh:mm:ss'),
       deliveryTime: moment().add(30, 'm').format('DD MM YYYY hh:mm:ss'),
       user: updatedUser,
       cart,
@@ -209,7 +209,8 @@ console.log("user",user)
       totalItems,
       totalAmount
     }
-    order(userBought,Bonus,userId)
+
+    await dispatch(order(userBought, newBonus))
     dispatch(clearOrder())
     setIsModalVisible(true)
   }

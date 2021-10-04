@@ -65,7 +65,8 @@
    "payment":{
       "subTotal":"subtotal: {{totalAmount}}",
       "shipping":"Shipping free 2.5 rub",
-      "orderTotal":" Total {{total}}"
+      "orderTotal":" Total {{total}}",
+      "bonusTotal": " Bonus Total {{bonusTotal}}"
    },
    "promoDay":{
       "date":"Every Wednesday",
@@ -322,6 +323,8 @@
    "bonus": "Bonus: {{bonus}} rubl",
    "useBonusText": "Write bonus what to use",
    "bonusZero": "Invalid",
-   "bonusPlaceholder": "write a number"
+   "bonusPlaceholder": "write a number",
+   "bonusError": "You dont have enough bonus",
+   "bonusText": "Bonus"
 
 }

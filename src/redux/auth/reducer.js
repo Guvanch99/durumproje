@@ -7,7 +7,8 @@ import {
   MODAL_ERROR_TOGGLE,
   TWO_FACTOR_AUTH_TOGGLE,
   GET_GENERATED_PASSWORD,
-  TWO_FACTOR_AUTH_ERROR
+  TWO_FACTOR_AUTH_ERROR,
+  SET_UPDATED_USER
 } from './type'
 
 const initialState = {
@@ -42,6 +43,8 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return { ...state, generatedPassword: payload }
     case TWO_FACTOR_AUTH_ERROR:
       return { ...state, twoFactorAuthInvalid: true }
+    case SET_UPDATED_USER:
+      return { ...state, user: payload }
     default:
       return state
   }

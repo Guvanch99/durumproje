@@ -11,6 +11,7 @@ import { DATA } from '../../data'
 import { ROUTER_CART } from '../../constants/routers'
 
 import './index.scss'
+import { ZERO } from '../../constants/variables'
 
 const { menuAuthCart } = DATA
 
@@ -44,7 +45,7 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
         <button onClick={logout} className="logout">
           {t('logout')}
         </button>
-          <h2 className='bonus'>{t('bonus', { bonus:user.Bonus })}</h2>
+          <h2 className='bonus'>{t('bonus', { bonus:user.bonus||ZERO })}</h2>
         </>
 
       ) : (

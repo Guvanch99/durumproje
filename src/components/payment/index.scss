@@ -22,4 +22,22 @@
     font-size: 4em;
     font-weight: bold;
   }
+
 }
+
+.bonus {
+  @include flex(space-between, center);
+  width: inherit;
+
+  &__dash {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid $lighterBlackColor;
+    margin: 1em 0;
+    padding: 0;
+    width: 2rem;
+  }
+
+}
+

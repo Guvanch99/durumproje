@@ -62,7 +62,8 @@
    "payment":{
       "subTotal":"Стоимость : {{totalAmount}}",
       "shipping":"Доставка 2.5 рубл",
-      "orderTotal":"Итого {{total}} рубл"
+      "orderTotal":"Итого {{total}} рубл",
+      "bonusTotal": "Бонус Итого {{bonusTotal}}"
    },
    "motto":{
       "mottoMain":"Доставка более 30 мин.",
@@ -322,5 +323,7 @@
    "bonus": "Бонус: {{bonus}} руб",
    "useBonusText": "Write bonus what to use",
    "bonusZero": "Ошибка",
-   "bonusPlaceholder": "Напишите числа"
+   "bonusPlaceholder": "Напишите числа",
+   "bonusError": "У вас недостаточно бонуса",
+   "bonusText": "Бонус"
 }

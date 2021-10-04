@@ -1,21 +1,28 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { PageLink } from '..'
 
 import { ROUTER_CHECKOUT, ROUTER_SIGN_UP } from '../../constants/routers'
-import { SHIPPING_FEE } from '../../constants/variables'
 
 import './index.scss'
+import { usedBonus } from '../../redux/cart/actionCreators'
 
-const Payment = () => {
+
+const Payment = ({ bonus }) => {
+  const dispatch = useDispatch()
   const { t } = useTranslation('translation')
   const {
     cart: { totalAmount },
     auth: { user }
   } = useSelector(state => state)
 
-  let total = totalAmount + SHIPPING_FEE
+  let totalCopy = totalAmount
+
+  const countTotalAmount = () => {
+    if ((bonus <= user.bonus) && bonus !== '' && bonus !== 0)
+      dispatch(usedBonus(bonus))
+  }
 
   return (
     <div className='payment'>
@@ -24,10 +31,20 @@ const Payment = () => {
       </h2>
       <p className='payment__shipping'> {t('payment.shipping')}</p>
       <hr />
-      <h1 className='payment__total'> {t('payment.orderTotal', { total })}</h1>
-
+      <div className='bonus'>
+        <h2 className='bonus__text'>{t('bonusText')}</h2>
+        <hr className='bonus__dash' />
+        <h2 className='bonus__count'>{bonus}</h2>
+      </div>
+      <h1 className='payment__total'> {t('payment.orderTotal', { total: totalCopy })}</h1>
+      <h1 className='payment__total-bonus'>
+        {
+          (bonus > user.bonus) ? t('bonusError') : (bonus <= user.bonus) ? t('payment.bonusTotal', { bonusTotal: totalAmount - bonus }) : null
+        }
+      </h1>
       {user ? (
         <PageLink
+          eventHandler={countTotalAmount}
           name={t('pageLink.goToCheckout')}
           direction={ROUTER_CHECKOUT}
         />
