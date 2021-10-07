@@ -12,6 +12,7 @@ import {
   PHONE_VALIDATION,
   INTEGER_AND_ZERO_VALIDATION
 } from '../../constants/regexes'
+
 import { BONUS_COEFFICIENT } from '../../constants/variables'
 
 import './index.scss'

@@ -16,6 +16,7 @@ const Modal = ({ modalVisibility }) => {
     history.push(ROUTER_HOME)
   }
   let timeDelivery = moment().add(30, 'm').format('hh:mm').toString()
+
   return (
     <div className="modal-wrapper">
       <div className="modal" onClick={closeModal}>

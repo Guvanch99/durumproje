@@ -4,7 +4,7 @@
   @include flex(normal, normal);
   flex-direction: column;
   flex: 1;
-  @include fontFamily($fontStyleScript);
+  @include fontFamily($fontRoboto);
 
   &__links {
     margin: 2rem 3rem;
@@ -15,10 +15,16 @@
     }
   }
 
+  &__input{
+    @include fontFamily($fontRoboto);
+    height: 2rem;
+    font-size: 2em;
+  }
   &__bonus {
     height: 9rem;
     @include flex(space-around, center);
     flex-direction: column;
+    margin: 0 2rem;
   }
 
   &__buttonClear {

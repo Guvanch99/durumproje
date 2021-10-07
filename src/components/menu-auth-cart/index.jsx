@@ -10,8 +10,10 @@ import { DATA } from '../../data'
 
 import { ROUTER_CART } from '../../constants/routers'
 
-import './index.scss'
 import { ZERO } from '../../constants/variables'
+
+import './index.scss'
+
 
 const { menuAuthCart } = DATA
 
@@ -28,32 +30,32 @@ const MenuAuthCart = ({ sidebarVisibilityToggle }) => {
   }
 
   return (
-    <ul className="menu">
-      <li className="menu__list">
+    <ul className='menu'>
+      <li className='menu__list'>
         <NavLink
           onClick={sidebarVisibilityToggle}
-          className="menu__list-link"
+          className='menu__list-link'
           to={ROUTER_CART}
         >
           {t('menuAuthCart.cart.name')}
           <i className={`fas fa-cart-plus menu__list-icon`} />
-          <span className="order-count">{totalItems}</span>
+          <span className='order-count'>{totalItems}</span>
         </NavLink>
       </li>
       {user ? (
         <>
-        <button onClick={logout} className="logout">
-          {t('logout')}
-        </button>
-          <h2 className='bonus'>{t('bonus', { bonus:user.bonus||ZERO })}</h2>
+          <button onClick={logout} className='logout'>
+            {t('logout')}
+          </button>
+          <h2 className='bonus'>{t('bonus')} <span className='bonus__count'>  {user.bonus || ZERO}</span></h2>
         </>
 
       ) : (
         menuAuthCart.map(({ url, keyName, iconName }, idx) => (
-          <li key={idx} className="menu__list">
+          <li key={idx} className='menu__list'>
             <NavLink
               onClick={sidebarVisibilityToggle}
-              className="menu__list-link"
+              className='menu__list-link'
               to={{ pathname: url, state: { from: location.pathname } }}
             >
               {t(`menuAuthCart.${keyName}.name`)}

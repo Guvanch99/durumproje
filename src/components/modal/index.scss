@@ -3,7 +3,7 @@
 .modal {
   @include flex(space-around, center);
   flex-direction: column;
-  @include fontFamily($fontStyleScript);
+  @include fontFamily($fontRoboto);
   padding: 2rem 8rem;
   margin: 1rem;
   background: $whiteColor;
@@ -29,12 +29,15 @@
     font-size: 6em;
     color: $greenSuccessColor;
   }
-&__time{
-  font-size: 3em;
-}
-  &__delivery-text{
+
+  &__time {
     font-size: 3em;
   }
+
+  &__delivery-text {
+    font-size: 3em;
+  }
+
   &-wrapper {
     @include flex(center, center);
     width: 100%;

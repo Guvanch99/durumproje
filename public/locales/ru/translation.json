@@ -320,7 +320,7 @@
    "deliveryTime": "Время доставки: {{timeDelivery}}",
    "lateDelivery": "если время прошло, возьми бесплатно",
    "modalError": "Использованные промокоды будут удалены !!!",
-   "bonus": "Бонус: {{bonus}} руб",
+   "bonus": "Бонус: ",
    "useBonusText": "Write bonus what to use",
    "bonusZero": "Ошибка",
    "bonusPlaceholder": "Напишите числа",

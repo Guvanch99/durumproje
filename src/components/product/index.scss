@@ -17,10 +17,10 @@
 
   &__info {
     @include flex(space-evenly, center);
+    @include fontFamily($fontDancingScript);
     flex-direction: column;
     height: 15rem;
     margin: 0 .5rem;
-    @include fontFamily($fontDancingScript);
   }
 
   &__name {
@@ -33,6 +33,7 @@
   }
 
   &__price {
+    @include fontFamily($fontRoboto);
     color: $mainColor;
     font-size: 3em;
 

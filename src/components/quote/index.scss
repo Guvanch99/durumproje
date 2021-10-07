@@ -3,10 +3,10 @@
 .quote {
   margin: 2rem 0 4rem 0;
   &__value {
+    @include fontFamily($fontDancingScript);
     text-align: center;
     margin-top: 1rem;
     font-size: 4em;
-    @include fontFamily($fontDancingScript);
     color: $mainColor;
 
     @include netbook {

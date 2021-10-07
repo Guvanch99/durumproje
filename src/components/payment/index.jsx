@@ -5,8 +5,9 @@ import { PageLink } from '..'
 
 import { ROUTER_CHECKOUT, ROUTER_SIGN_UP } from '../../constants/routers'
 
-import './index.scss'
 import { usedBonus } from '../../redux/cart/actionCreators'
+
+import './index.scss'
 
 
 const Payment = ({ bonus }) => {
@@ -37,21 +38,28 @@ const Payment = ({ bonus }) => {
         <h2 className='bonus__count'>{bonus}</h2>
       </div>
       <h1 className='payment__total'> {t('payment.orderTotal', { total: totalCopy })}</h1>
-      <h1 className='payment__total-bonus'>
-        {
-          (bonus > user.bonus) ? t('bonusError') : (bonus <= user.bonus) ? t('payment.bonusTotal', { bonusTotal: totalAmount - bonus }) : null
-        }
-      </h1>
-      {user ? (
-        <PageLink
-          eventHandler={countTotalAmount}
-          name={t('pageLink.goToCheckout')}
-          direction={ROUTER_CHECKOUT}
-        />
-      ) : (
-        <PageLink name={t('pageLink.signUp')} direction={ROUTER_SIGN_UP} />
-      )}
+      {
+        user ? (
+          <h1 className='payment__total-bonus'>
+            {
+              (bonus > user.bonus) ? t('bonusError') : (bonus <= user.bonus) ? t('payment.bonusTotal', { bonusTotal: totalAmount - bonus }) : null
+            }
+          </h1>
+        ) : null
+      }
+      <div className='payment__checkout'>
+        {user ? (
+          <PageLink
+            eventHandler={countTotalAmount}
+            name={t('pageLink.goToCheckout')}
+            direction={ROUTER_CHECKOUT}
+          />
+        ) : (
+          <PageLink name={t('pageLink.signUp')} direction={ROUTER_SIGN_UP} />
+        )}
+      </div>
     </div>
+
   )
 }
 

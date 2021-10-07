@@ -12,7 +12,6 @@ import { apiCall } from '../../services'
 
 import { promoCodeMap } from '../../data'
 
-
 import { DONALD_THRUMP_API } from '../../constants/api'
 
 import './index.scss'

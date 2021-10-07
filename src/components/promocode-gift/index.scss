@@ -4,6 +4,7 @@
   @include flex(center, center);
   flex-direction: column;
   margin-top: 1rem;
+
   &__container{
     width: 100%;
     @include flex(normal, center);
@@ -14,12 +15,13 @@
 
   }
   &__text {
-
     font-size: 2em;
   }
+
   &__name{
     text-align: center;
   }
+
   &__image {
     justify-self: flex-end;
     width: 16rem;
@@ -28,6 +30,6 @@
 
   &__description {
     font-size: 2em;
-
   }
 }
+

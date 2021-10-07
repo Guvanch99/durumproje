@@ -25,6 +25,7 @@
   &__label {
     font-size: 3em;
     color: $mainColor;
+
     @include tablet {
       font-size: 2em;
     }
