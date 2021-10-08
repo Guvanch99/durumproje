@@ -10,3 +10,13 @@ export const modifiedEmail = email => {
 }
 export const generatePassword = () => Math.floor(Math.random() * 1000000 + 1)
 
+export const debounce = (fn, ms) => {
+  let timeout
+  return function() {
+    const fnCall = () => {
+      fn.apply(this, arguments)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(fnCall, ms)
+  }
+}

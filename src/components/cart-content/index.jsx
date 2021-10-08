@@ -6,13 +6,13 @@ import { CartTable, Payment, PageLink, CartGift } from '..'
 
 import { clearCart } from '../../redux/cart/actionCreators'
 
+import { useDebounced } from '../../hooks'
+
+import { debounce } from '../../utils'
+
 import { ROUTER_MENU } from '../../constants/routers'
 
-import { ZERO } from '../../constants/variables'
-
 import './index.scss'
-
-
 
 const CartContent = () => {
   const dispatch = useDispatch()
@@ -21,13 +21,22 @@ const CartContent = () => {
   const [bonusCount, setBonusCount] = useState('')
 
   const handleChange = ({ target: { value } }) => {
-    if (!isNaN(value))
+    console.log("handleChange", value)
+    if (!isNaN(value)) {
       setBonusCount(value)
+    }
   }
 
+  console.log('bonusCount', bonusCount)
   const clearCartHandler = () => {
     dispatch(clearCart())
   }
+
+  const onChange=(e)=> {
+    console.log(e.target.value);
+  }
+
+
 
   return (
     <div className='cart-content'>
@@ -40,11 +49,11 @@ const CartContent = () => {
           direction={ROUTER_MENU}
           name={t('pageLink.continueShopping')}
         />
-        {user  ? (
+        {user ? (
           <div className='cart-content__bonus'>
             <h1>{t('useBonusText')}</h1>
             <input maxLength={4} max={9999} className='cart-content__input' type='num' value={bonusCount}
-                   onChange={handleChange} placeholder={t('bonusPlaceholder')} />
+                   onChange={  debounce(handleChange, 200)} placeholder={t('bonusPlaceholder')} />
           </div>
         ) : null}
         <button

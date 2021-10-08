@@ -28,13 +28,13 @@
 .arrow {
   position: absolute;
   @extend %sliderIcon;
-  top: 45%;
+  top: 40%;
   &-right {
-    right: 13%;
+    right: 18%;
   }
 
   &-left {
-    left: 13%;
+    left: 18%;
   }
 
   @include mobile {

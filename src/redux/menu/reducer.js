@@ -3,17 +3,18 @@ const initialState = {
   allProducts: [],
   filteredProducts: [],
   sort: '',
-  sortCategory: 'All'
+  sortCategory: 'All',
 }
 
 export const menuReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_ALL_PRODUCTS:
-      return { ...state, allProducts: payload, filteredProducts: payload }
+      return { ...state, allProducts: [...state.allProducts,...payload], filteredProducts: [...state.filteredProducts,...payload] }
+
     case ON_CHANGE:
       const { name, value } = payload
-
       return { ...state, [name]: value }
+
     case FILTER_PRODUCTS:
       const { sort, sortCategory, allProducts } = state
       let temp = [...allProducts]
@@ -39,6 +40,7 @@ export const menuReducer = (state = initialState, { type, payload }) => {
         temp = temp.filter(t => t.type === 'combo')
       }
       return { ...state, filteredProducts: temp }
+
     default:
       return state
   }
