@@ -116,10 +116,7 @@ const mapDispatchToProps = dispatch => ({
   getFreeMeal: (id, promo) => dispatch(getPresentPromo(id, promo))
 })
 
-const mapStateToProps = ({
-                           cart: { gift, restrictedPromoCodes },
-                           auth: { user }
-                         }) => ({
+const mapStateToProps = ({ cart: { gift, restrictedPromoCodes }, auth: { user } }) => ({
   gift,
   restrictedPromoCodes,
   user

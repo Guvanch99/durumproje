@@ -52,8 +52,9 @@ export const updateGift = payload => ({ type: UPDATE_GIFT, payload })
 export const updateRestrictedPromoCodes = (payload) => ({ type: UPDATE_RESTRICTED_PROMO_CODE, payload })
 
 export const getPresentPromo = (idProduct, promoCode) => async (dispatch, getState) => {
+  dispatch(userPromoCodeUsed(promoCode))
   const { data } = await DB(`/all-products?id=${idProduct}`)
-  const { auth: { user } } = getState()
+  const { auth: { user }, cart: { restrictedPromoCodes: restricted } } = getState()
   const { id, name, src, description, type } = data[0]
   const payload = {
     id,
@@ -66,14 +67,15 @@ export const getPresentPromo = (idProduct, promoCode) => async (dispatch, getSta
     promoCode
   }
   dispatch(getPresent(payload))
-  dispatch(userPromoCodeUsed(promoCode))
   dispatch(countTotal())
-  const promoCodes = [
-    promoCode
-  ]
-  user !== null && await DB.patch(
-    `/users/${user.id}`, { restrictedPromoCodes: promoCodes }
-  )
+  if (user !== null) {
+    const { data } = await DB.patch(
+      `/users/${user.id}`, { restrictedPromoCodes: restricted })
+    dispatch(updateUser(data))
+  }
+
+
+  console.log('promoCodesRestricted', restricted)
 
 }
 export const order = (orderData, newBonus) => async (dispatch, getState) => {
@@ -81,6 +83,7 @@ export const order = (orderData, newBonus) => async (dispatch, getState) => {
   const { id, bonus } = user
   const bonusModified = Number((bonus + newBonus).toFixed(2))
   await DB.post('/orders', orderData)
+  console.log(orderData)
   DB.patch(`/users/${id}`, { bonus: bonusModified }).then(({ data }) => dispatch(updateUser(data)))
 }
 

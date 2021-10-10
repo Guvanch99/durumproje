@@ -68,15 +68,20 @@ export const createUser = (user, location, history) => async (
   dispatch,
   getState
 ) => {
+
   const {
     cart: { restrictedPromoCodes }
   } = getState()
+  console.log(restrictedPromoCodes)
   const { data } = await DB.post('/users', { ...user, restrictedPromoCodes, bonus: 0 })
+  console.log(restrictedPromoCodes)
   dispatch(signUp(data))
   dispatch(updateRestrictedPromoCodes(data.restrictedPromoCodes))
   location.state !== null && location.state.from === ROUTER_LOGIN
     ? history.push(ROUTER_HOME)
     : history.goBack()
+
+
 }
 
 export const loginUser = (userName, password, location, history) => async (
@@ -106,14 +111,18 @@ export const loginUser = (userName, password, location, history) => async (
       x => !users[0].restrictedPromoCodes.includes(x.promoCode)
     )
 
+    let modifiedUserData={
+      ...data,
+      bonus:Number(data.bonus)
+    }
+
     dispatch(updateGift(updatedGift))
     dispatch(countTotal())
     intersectionPromoCode.length > 0 && dispatch(modalPromoErrorToggle())
-    dispatch(login(data))
+    dispatch(login(modifiedUserData))
     dispatch(updateRestrictedPromoCodes(data.restrictedPromoCodes))
 
     if (intersectionPromoCode.length === 0) {
-      console.log(location)
       location.state !== null && location.state.from === ROUTER_SIGN_UP
         ? history.push(ROUTER_HOME)
         : history.goBack()
@@ -126,7 +135,7 @@ export const twoFactorAuth = user => async dispatch => {
   const { data: searchedUser } = await DB(
     `/users?userName=${user.userName}&email=${user.email}`
   )
-  if (searchedUser.length) {
+  if (searchedUser.length>0) {
     dispatch(isUserExist())
   } else {
     const generatedPassword = generatePassword()

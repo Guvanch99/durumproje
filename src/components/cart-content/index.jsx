@@ -21,7 +21,7 @@ const CartContent = () => {
   const [bonusCount, setBonusCount] = useState('')
 
   const handleChange = ({ target: { value } }) => {
-    console.log("handleChange", value)
+    console.log('handleChange', value)
     if (!isNaN(value)) {
       setBonusCount(value)
     }
@@ -32,10 +32,9 @@ const CartContent = () => {
     dispatch(clearCart())
   }
 
-  const onChange=(e)=> {
-    console.log(e.target.value);
+  const onChange = (e) => {
+    console.log(e.target.value)
   }
-
 
 
   return (
@@ -53,7 +52,7 @@ const CartContent = () => {
           <div className='cart-content__bonus'>
             <h1>{t('useBonusText')}</h1>
             <input maxLength={4} max={9999} className='cart-content__input' type='num' value={bonusCount}
-                   onChange={  debounce(handleChange, 200)} placeholder={t('bonusPlaceholder')} />
+                   onChange={handleChange} placeholder={t('bonusPlaceholder')} />
           </div>
         ) : null}
         <button
