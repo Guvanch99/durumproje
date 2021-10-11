@@ -30,7 +30,6 @@ export const authReducer = (state = initialState, { type, payload }) => {
     case USER_NOT_FOUND:
       return { ...state, userNotFound: true }
     case LOGIN_USER: {
-      console.log(payload)
       return { ...state, user: payload, userNotFound: false }
     }
     case LOGOUT:

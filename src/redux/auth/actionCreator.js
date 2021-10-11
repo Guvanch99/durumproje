@@ -72,9 +72,7 @@ export const createUser = (user, location, history) => async (
   const {
     cart: { restrictedPromoCodes }
   } = getState()
-  console.log(restrictedPromoCodes)
   const { data } = await DB.post('/users', { ...user, restrictedPromoCodes, bonus: 0 })
-  console.log(restrictedPromoCodes)
   dispatch(signUp(data))
   dispatch(updateRestrictedPromoCodes(data.restrictedPromoCodes))
   location.state !== null && location.state.from === ROUTER_LOGIN

@@ -73,17 +73,12 @@ export const getPresentPromo = (idProduct, promoCode) => async (dispatch, getSta
       `/users/${user.id}`, { restrictedPromoCodes: restricted })
     dispatch(updateUser(data))
   }
-
-
-  console.log('promoCodesRestricted', restricted)
-
 }
 export const order = (orderData, newBonus) => async (dispatch, getState) => {
   const { auth: { user } } = getState()
   const { id, bonus } = user
   const bonusModified = Number((bonus + newBonus).toFixed(2))
   await DB.post('/orders', orderData)
-  console.log(orderData)
   DB.patch(`/users/${id}`, { bonus: bonusModified }).then(({ data }) => dispatch(updateUser(data)))
 }
 
@@ -93,5 +88,4 @@ export const usedBonus = bonusCount => (dispatch, getState) => {
   const bonusModified = Number((bonus - bonusCount).toFixed(2))
   dispatch(subtractBonus(bonusCount))
   DB.patch(`/users/${id}`, { bonus: bonusModified }).then(({ data }) => dispatch(updateUser(data)))
-
 }
