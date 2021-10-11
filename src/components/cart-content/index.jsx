@@ -19,23 +19,15 @@ const CartContent = () => {
   const { t } = useTranslation('translation')
   const { cart: { gift }, auth: { user } } = useSelector(state => state)
   const [bonusCount, setBonusCount] = useState('')
+  const bonus = useDebounced(bonusCount)
 
   const handleChange = ({ target: { value } }) => {
-    console.log('handleChange', value)
     if (!isNaN(value)) {
       setBonusCount(value)
     }
   }
 
-  console.log('bonusCount', bonusCount)
-  const clearCartHandler = () => {
-    dispatch(clearCart())
-  }
-
-  const onChange = (e) => {
-    console.log(e.target.value)
-  }
-
+  const clearCartHandler = () => dispatch(clearCart())
 
   return (
     <div className='cart-content'>
@@ -62,7 +54,7 @@ const CartContent = () => {
           {t('clear')}
         </button>
       </div>
-      <Payment bonus={bonusCount} />
+      <Payment bonus={bonus} />
     </div>
   )
 }

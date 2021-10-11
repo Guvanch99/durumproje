@@ -20,3 +20,32 @@ export const debounce = (fn, ms) => {
     timeout = setTimeout(fnCall, ms)
   }
 }
+
+export const throttle = (fn, ms) => {
+  let isThrottle = false
+  let savedArgs
+  let savedThis
+
+  function wrapper() {
+    if (isThrottle) {
+      savedArgs = arguments
+      savedThis = this
+      return
+    }
+
+    fn.apply(this, arguments)
+
+    isThrottle = true
+
+    setTimeout(() => {
+      isThrottle = false
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs)
+        savedArgs = savedThis = false
+      }
+    }, ms)
+  }
+
+  return wrapper
+}
+

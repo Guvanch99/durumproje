@@ -9,8 +9,12 @@ import {
   PageHero,
   ArticleName
 } from '../../components'
-import { DB } from '../../core/axios'
+
 import { getAllProducts } from '../../redux/menu/actionCreators'
+
+import { DB } from '../../core/axios'
+
+import { throttle } from '../../utils'
 
 const Menu = () => {
   const { t } = useTranslation('translation')
@@ -26,10 +30,10 @@ const Menu = () => {
 
   useEffect(() => {
       if (fetching) {
-        DB(`/all-products?_limit=4&_page=${currentPage}`).then(({ data, headers }) => {
+        DB(`/all-products?_limit=4&_page=${currentPage}`).then(({ data }) => {
           dispatch(getAllProducts(data))
           setFetching(false)
-          setCurrentPage(prev=>prev+1)
+          setCurrentPage(prev => prev + 1)
         })
       }
     }, [fetching, dispatch]
@@ -37,14 +41,15 @@ const Menu = () => {
 
   useEffect(
     () => {
-      document.addEventListener('scroll', scrollHandler)
+      document.addEventListener('scroll', throttle(scrollHandler, 1000))
 
       return () => document.removeEventListener('scroll', scrollHandler)
     }, []
   )
 
-  const scrollHandler=({ target: { documentElement: { scrollHeight, scrollTop } } })=> {
-    if (scrollHeight - (scrollTop + window.innerHeight) < 100 )
+  const scrollHandler = ({ target: { documentElement: { scrollHeight, scrollTop } } }) => {
+    console.log('fired')
+    if (scrollHeight - (scrollTop + window.innerHeight) < 100)
       setFetching(true)
   }
 
