@@ -1,9 +1,14 @@
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { CartTable, Payment, PageLink, CartGift } from '..'
 
 import { clearCart } from '../../redux/cart/actionCreators'
+
+import { useDebounced } from '../../hooks'
+
+import { debounce } from '../../utils'
 
 import { ROUTER_MENU } from '../../constants/routers'
 
@@ -12,32 +17,44 @@ import './index.scss'
 const CartContent = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation('translation')
-  const { gift } = useSelector(state => state.cart)
+  const { cart: { gift }, auth: { user } } = useSelector(state => state)
+  const [bonusCount, setBonusCount] = useState('')
+  const bonus = useDebounced(bonusCount)
 
-  const clearCartHandler = () => {
-    dispatch(clearCart())
+  const handleChange = ({ target: { value } }) => {
+    if (!isNaN(value)) {
+      setBonusCount(value)
+    }
   }
 
+  const clearCartHandler = () => dispatch(clearCart())
+
   return (
-    <div className="cart-content">
+    <div className='cart-content'>
       <CartTable />
       <hr />
       {gift ? <CartGift gift={gift} /> : null}
 
-      <div className="cart-content__links">
+      <div className='cart-content__links'>
         <PageLink
           direction={ROUTER_MENU}
           name={t('pageLink.continueShopping')}
         />
-
+        {user ? (
+          <div className='cart-content__bonus'>
+            <h1>{t('useBonusText')}</h1>
+            <input maxLength={4} max={9999} className='cart-content__input' type='num' value={bonusCount}
+                   onChange={handleChange} placeholder={t('bonusPlaceholder')} />
+          </div>
+        ) : null}
         <button
           onClick={clearCartHandler}
-          className="cart-content__buttonClear"
+          className='cart-content__buttonClear'
         >
           {t('clear')}
         </button>
       </div>
-      <Payment />
+      <Payment bonus={bonus} />
     </div>
   )
 }

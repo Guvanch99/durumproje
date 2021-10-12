@@ -5,9 +5,9 @@
   flex-direction: column;
 
   &__error {
+    @include fontFamily($fontDancingScript);
     font-size: 2em;
     color: $lighterRedColor;
-    @include fontFamily($fontDancingScript);
     text-align: center;
     margin-top: 1rem;
   }
@@ -15,8 +15,8 @@
 
 .form {
   @include flex(space-evenly, center);
-  flex-direction: column;
   @include fontFamily($fontDancingScript);
+  flex-direction: column;
   margin-top: 1rem;
 
   &__group {
@@ -27,6 +27,7 @@
     &_label {
       font-size: 1.5em;
     }
+
     &_input {
       margin: .4rem 0;
       @include fontFamily($fontDancingScript);
@@ -36,15 +37,16 @@
       border-bottom: 1px solid $lighterBlackColor;
       outline: none;
       width: 15rem;
+
       &:focus {
         border-bottom: 1px solid $mainColor;
       }
     }
   }
   &__button {
+    @include fontFamily($fontDancingScript);
     color: $whiteColor;
     background: $mainColor;
-    @include fontFamily($fontDancingScript);
     font-size: 2em;
     padding: .2rem 2rem;
     border: none;

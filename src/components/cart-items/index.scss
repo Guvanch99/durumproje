@@ -4,7 +4,7 @@
   text-align: center;
 
   &:nth-child(even) {
-    background: $lighterYellowColor;
+    background: $purpleColor;
   }
 
   @include mobile {

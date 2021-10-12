@@ -15,6 +15,7 @@
     @include fontFamily($fontRoboto);
     font-size: 1em;
     color: $whiteColor;
+
     &:hover {
       color: $lighterYellowColor;
     }
@@ -28,6 +29,7 @@
     @include fontFamily($fontRoboto);
     color: $whiteColor;
     font-size: 1em;
+
     &:hover {
       color: $lighterYellowColor;
     }

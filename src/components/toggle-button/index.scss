@@ -27,7 +27,7 @@
   &__circle {
     content: '';
     position: absolute;
-    top: -.8px;
+    top: -.3px;
     left: -1px;
     width: 1.5rem;
     height: 1.6rem;
@@ -38,7 +38,7 @@
   }
 
   &__button:checked + &__background &__circle {
-    left: calc(100% - 2px);
+    left: calc(100% - 1px);
     transform: translateX(-100%);
   }
 

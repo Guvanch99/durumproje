@@ -35,11 +35,7 @@ const CartGift = ({ gift }) => {
 export default memo(CartGift)
 
 CartGift.propTypes = {
-  gift: PropTypes.shape({
-    name: PropTypes.string,
-    src: PropTypes.string,
-    amount: PropTypes.number
-  })
+ gift:PropTypes.array
 }
 
 

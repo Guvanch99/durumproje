@@ -3,6 +3,7 @@
 .cart__label {
   font-size: 5em;
   text-align: center;
+
   @include mobile {
     display: none;
   }
@@ -26,6 +27,7 @@
   &__name {
     font-size: 1.6rem;
     margin: .5rem 0;
+
     &-color {
       color: $mainColor;
     }
@@ -33,6 +35,7 @@
 
   &__amount {
     font-size: 1.4rem;
+
     &-color {
       color: $lighterRedColor;
     }

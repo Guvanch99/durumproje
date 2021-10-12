@@ -11,6 +11,7 @@
   padding: .1rem 1rem;
   border-radius: 13%;
 }
+
 %sliderIcon {
   top: 40%;
   font-size: 3rem;
@@ -28,11 +29,13 @@
 ul {
   list-style: none;
 }
+
 a {
   @include fontFamily($fontDancingScript);
   text-decoration: none;
   font-size: 2em;
   color: $secondaryColor;
+
   &:hover {
     border-bottom: 1px solid $mainColor;
   }
@@ -60,8 +63,19 @@ input {
   }
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .is-darkGreen {
   background: $darkGreen;
+
   a,
   h1,
   h2,
@@ -76,14 +90,17 @@ input {
   .views__icon {
     color: $whiteColor;
   }
+
   select {
     background: $darkGreen;
   }
 }
+
 .is-sidebar {
   .arrow {
     display: none;
   }
+
   .menu {
     align-items: center;
   }

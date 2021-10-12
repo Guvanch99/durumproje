@@ -2,8 +2,8 @@
 
 .promoCode {
   @include flex(center, center);
-  flex-direction: column;
   @include fontFamily($fontDancingScript);
+  flex-direction: column;
   margin: 1rem 1rem;
 
   @include netbook {
@@ -17,6 +17,7 @@
       margin-bottom: 1rem;
       flex-direction: column;
     }
+
     &__label {
       font-size: 4em;
 
@@ -29,10 +30,10 @@
       }
     }
     &__input {
+      @include fontFamily($fontDancingScript);
       border: none;
       outline: none;
       margin: 0 1rem;
-      @include fontFamily($fontDancingScript);
       font-size: 2em;
       border-bottom: 1px solid $lighterGrayColor;
 
@@ -44,16 +45,17 @@
         margin: 1rem 0;
       }
     }
+
     &__submit {
       @extend %button;
+      @include fontFamily($fontDancingScript);
       background-color: $lighterBlackColor;
       color: $whiteColor;
-      @include fontFamily($fontDancingScript);
+
       @include tablet {
-        & {
           font-size: 1.8em;
-        }
       }
+
       &:disabled{
         background-color: $lighterRedColor;
         cursor: default;
@@ -61,6 +63,7 @@
     }
   }
 }
+
 .promo-used{
   text-align: center;
   font-size: 3em;

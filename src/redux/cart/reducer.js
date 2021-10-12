@@ -7,15 +7,18 @@ import {
   GET_PRESENT,
   CLEAR_ORDER,
   PROMO_CODE_USED,
-  UPDATE_RESTRICTED_PROMO_CODE, UPDATE_GIFT
+  UPDATE_RESTRICTED_PROMO_CODE, UPDATE_GIFT,
+  SUBTRACT_BONUS
 } from './type'
+
+import { SHIPPING_FEE } from '../../constants/variables'
 
 const initialState = {
   cart: [],
   gift: [],
   totalAmount: 0,
   totalItems: 0,
-  restrictedPromoCodes:[]
+  restrictedPromoCodes: []
 }
 
 export const cartReducer = (state = initialState, { type, payload }) => {
@@ -46,7 +49,7 @@ export const cartReducer = (state = initialState, { type, payload }) => {
           price,
           amount,
           src,
-          type,
+          type: payload.singleProduct.type,
           subTotal: Math.floor(amount * price)
         }
 
@@ -76,7 +79,8 @@ export const cartReducer = (state = initialState, { type, payload }) => {
         }
       )
       let totalItems = state.gift.length + totalItem
-      return { ...state, totalAmount, totalItems }
+      let totalAll = Number((totalAmount + SHIPPING_FEE).toFixed(2))
+      return { ...state, totalAmount: totalAll, totalItems }
 
     case TOGGLE_CART_PRODUCT_AMOUNT:
       const { inc, dec } = payload
@@ -103,15 +107,19 @@ export const cartReducer = (state = initialState, { type, payload }) => {
       })
       return { ...state, cart: tempCart }
     case GET_PRESENT:
-      return { ...state, gift: [...state.gift,payload] }
+      return { ...state, gift: [...state.gift, payload] }
     case CLEAR_ORDER:
       return { ...state, cart: [], gift: [] }
     case PROMO_CODE_USED:
-      return {...state,restrictedPromoCodes:[...state.restrictedPromoCodes,payload] }
+      console.log('payload', payload)
+      let updatedRestrictedPromoCodes = [...state.restrictedPromoCodes, payload]
+      return { ...state, restrictedPromoCodes: updatedRestrictedPromoCodes }
     case UPDATE_RESTRICTED_PROMO_CODE:
-      return  {...state,restrictedPromoCodes:payload}
+      return { ...state, restrictedPromoCodes: payload }
     case UPDATE_GIFT:
-      return  {...state,gift:payload}
+      return { ...state, gift: payload }
+    case SUBTRACT_BONUS:
+      return { ...state, totalAmount: state.totalAmount - payload }
     default:
       return state
   }

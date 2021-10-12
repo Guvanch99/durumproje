@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import classNames from 'classnames'
-import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { Sidebar, Navbar, Footer, PrivateRoute } from '../components'
@@ -80,6 +80,7 @@ const App = () => {
   }, [cart, dispatch])
 
   const Bar = isSidebarVisible ? Navbar : Sidebar
+
   return (
     <div
       className={classNames('container', {

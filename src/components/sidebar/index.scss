@@ -32,8 +32,8 @@
   }
 
   &__times {
-    position: absolute;
     @extend %button;
+    position: absolute;
     top: 10%;
     right: 5%;
     color: $lighterRedColor;

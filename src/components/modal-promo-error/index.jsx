@@ -27,7 +27,6 @@ const ModalPromoError = () => {
         <i className='fas fa-exclamation modalPromo__icon' />
         <button onClick={closeModal} className='modalPromo__button'>{t('close')}</button>
       </div>
-
     </div>
   )
 }

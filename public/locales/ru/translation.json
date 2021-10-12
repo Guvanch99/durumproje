@@ -62,7 +62,8 @@
    "payment":{
       "subTotal":"Стоимость : {{totalAmount}}",
       "shipping":"Доставка 2.5 рубл",
-      "orderTotal":"Итого {{total}} рубл"
+      "orderTotal":"Итого {{total}} рубл",
+      "bonusTotal": "Бонус Итого {{bonusTotal}}"
    },
    "motto":{
       "mottoMain":"Доставка более 30 мин.",
@@ -318,6 +319,11 @@
    "menuCount":"Кол-во: {{count}}",
    "deliveryTime": "Время доставки: {{timeDelivery}}",
    "lateDelivery": "если время прошло, возьми бесплатно",
-   "modalError": "Использованные промокоды будут удалены !!!"
-
+   "modalError": "Использованные промокоды будут удалены !!!",
+   "bonus": "Бонус: ",
+   "useBonusText": "Write bonus what to use",
+   "bonusZero": "Ошибка",
+   "bonusPlaceholder": "Напишите числа",
+   "bonusError": "У вас недостаточно бонуса",
+   "bonusText": "Бонус"
 }
