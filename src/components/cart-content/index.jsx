@@ -8,8 +8,6 @@ import { clearCart } from '../../redux/cart/actionCreators'
 
 import { useDebounced } from '../../hooks'
 
-import { debounce } from '../../utils'
-
 import { ROUTER_MENU } from '../../constants/routers'
 
 import './index.scss'

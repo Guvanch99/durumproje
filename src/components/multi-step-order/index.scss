@@ -1,0 +1,39 @@
+@import "src/styles/common";
+
+.order-container {
+  @include flex(center, center);
+  @include fontFamily($fontDancingScript);
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.order-form {
+  @include flex(center, center);
+  flex-direction: column;
+  margin-top: 1rem;
+
+  &__text {
+    color: $mainColor;
+    text-align: center;
+  }
+
+  &__button {
+    border-radius: 12%;
+    background-color: $greenSuccessColor;
+    font-size: 4em;
+    color: $whiteColor;
+    cursor: pointer;
+    margin: .5rem 0;
+
+    &:disabled {
+      color: $whiteColor;
+      background-color: $lighterRedColor;
+      cursor: auto;
+    }
+  }
+
+  &__icon {
+    padding: 0.4rem;
+    font-size: 1em;
+  }
+}

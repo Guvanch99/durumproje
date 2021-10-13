@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
 
-import { Input, Modal, Portal } from '..'
+import { Input, Modal, Portal, UserAddress, UserInfo, UserPayment } from '..'
 
 import { clearOrder, order } from '../../redux/cart/actionCreators'
 
@@ -27,6 +27,7 @@ const OrderForm = () => {
   const dispatch = useDispatch()
 
   const [userInfo, setUserInfo] = useState({
+    step: 1,
     userName: user.userName,
     email: user.email,
     phone: '',
@@ -47,8 +48,9 @@ const OrderForm = () => {
   })
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const { userName, email, phone, street, house, entrance, storey, payment } =
+  const { userName, email, phone, street, house, entrance, storey, payment, step } =
     userInfo
+  const values = { userName, email, phone, street, house, entrance, storey, payment }
 
   const isButtonDisabled =
     !userName ||
@@ -65,26 +67,37 @@ const OrderForm = () => {
     errors.house ||
     errors.entrance ||
     errors.storey
+
   const phoneValidation = () => {
     !PHONE_VALIDATION.test(phone) &&
     setErrors({ ...errors, phone: 'orderForm.orderErrors.phone' })
   }
+
   const streetValidation = () => {
     street.length < 3 &&
     setErrors({ ...errors, street: 'orderForm.orderErrors.street' })
   }
+
   const houseValidation = () => {
     !INTEGER_AND_ZERO_VALIDATION.test(house) &&
     setErrors({ ...errors, house: 'orderForm.orderErrors.house' })
   }
+
   const entranceValidation = () => {
     !INTEGER_VALIDATION.test(entrance) &&
     setErrors({ ...errors, entrance: 'orderForm.orderErrors.entrance' })
   }
+
   const storeyValidation = () => {
     !INTEGER_AND_ZERO_VALIDATION.test(storey) &&
     setErrors({ ...errors, storey: 'orderForm.orderErrors.storey' })
   }
+
+  const prevStep = () => setUserInfo({ ...setUserInfo, step: step - 1 })
+
+
+  const nextStep = () => setUserInfo({ ...setUserInfo, step: step + 1 })
+
   /* eslint-disable */
   const orderData = useMemo(
     () => ({
@@ -167,13 +180,13 @@ const OrderForm = () => {
       house,
       entrance,
       storey,
-      errors.userNameError,
-      errors.emailError,
-      errors.phoneError,
-      errors.streetError,
-      errors.houseError,
-      errors.entranceError,
-      errors.storeyError
+      errors.userName,
+      errors.email,
+      errors.phone,
+      errors.street,
+      errors.house,
+      errors.entrance,
+      errors.storey
     ]
   )
   const handleChange = e => {
@@ -182,6 +195,7 @@ const OrderForm = () => {
     setUserInfo({ ...userInfo, [name]: value })
   }
 
+  const handlePayment=(e)=>setUserInfo({ ...userInfo,payment: e.target.value})
 
   const orderMenu = async (e) => {
     e.preventDefault()
@@ -216,89 +230,124 @@ const OrderForm = () => {
     setIsModalVisible(true)
   }
 
-  return (
-    <>
-      {isModalVisible ? (
-        <Portal
-          component={Modal}
-          nameOfClass='success-modal-js'
-          modalVisibility={setIsModalVisible}
-        />
-      ) : (
-        <form className='order-form'>
-          <div className='order-form__header-container'>
-            <h1 className='order-form__info'>{t('orderForm.main')}</h1>
-            {orderData.mainInfo.map(
-              (
-                { name, value, label, error, type, functionError, disabled },
-                index
-              ) => (
-                <Input
-                  key={index}
-                  name={name}
-                  value={value}
-                  label={t(label)}
-                  error={t(error)}
-                  type={type}
-                  required={true}
-                  onChange={handleChange}
-                  handleBlur={functionError}
-                  disabled={disabled}
-                />
-              )
-            )}
-          </div>
-          <div className='order-form__body-container'>
-            <h1 className='order-form__info'>{t('orderForm.address')}</h1>
-            {orderData.address.map(
-              ({ name, value, label, error, type, functionError }, index) => (
-                <Input
-                  key={index}
-                  name={name}
-                  value={value}
-                  label={t(label)}
-                  error={t(error)}
-                  required={true}
-                  type={type}
-                  onChange={handleChange}
-                  handleBlur={functionError}
-                />
-              )
-            )}
-          </div>
-          <div className='order-form__footer-container'>
-            <h1 className='order-form__info'>{t('orderForm.payment')}</h1>
+  switch (step) {
+    case 1:
+      return (
+        <UserInfo nextStep={nextStep}
+                  handleChange={handleChange}
+                  phoneValidation={phoneValidation}
+                  values={values} errors={errors} />
+      )
 
-            {orderData.payment.map(({ label, name, value }, index) => (
-              <div key={index} className='order-form__group'>
-                <label className='order-form__label'>{t(label)}</label>
-                <input
-                  onChange={e =>
-                    setUserInfo({
-                      ...userInfo,
-                      payment: e.target.value
-                    })
-                  }
-                  value={value}
-                  type='radio'
-                  name={name}
-                  id={value}
-                  defaultChecked={index === 0}
-                />
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={orderMenu}
-            className='order__button'
-            disabled={isButtonDisabled}
-          >
-            {t('orderForm.orderButton')}
-          </button>
-        </form>
-      )}
-    </>
-  )
+    case 2:
+      return (
+        <UserAddress nextStep={nextStep}
+                     prevStep={prevStep}
+                     handleChange={handleChange}
+                     streetValidation={streetValidation}
+                     houseValidation={houseValidation}
+                     entranceValidation={entranceValidation}
+                     storeyValidation={storeyValidation}
+                     values={values}
+                     errors={errors} />
+      )
+
+    case 3:
+      return (
+        <UserPayment prevStep={prevStep} handlePayment={handlePayment} value={userInfo.payment}  />
+      )
+    case 4:
+      return (
+        <Modal />
+      )
+
+  }
 }
-
 export default OrderForm
+
+
+//   return (
+//     <>
+//       {isModalVisible ? (
+//         <Portal
+//           component={Modal}
+//           nameOfClass='success-modal-js'
+//           modalVisibility={setIsModalVisible}
+//         />
+//       ) : (
+//         <form className='order-form'>
+//           <div className='order-form__header-container'>
+//             <h1 className='order-form__info'>{t('orderForm.main')}</h1>
+//             {orderData.mainInfo.map(
+//               (
+//                 { name, value, label, error, type, functionError, disabled },
+//                 index
+//               ) => (
+//                 <Input
+//                   key={index}
+//                   name={name}
+//                   value={value}
+//                   label={t(label)}
+//                   error={t(error)}
+//                   type={type}
+//                   required={true}
+//                   onChange={handleChange}
+//                   handleBlur={functionError}
+//                   disabled={disabled}
+//                 />
+//               )
+//             )}
+//           </div>
+//           <div className='order-form__body-container'>
+//             <h1 className='order-form__info'>{t('orderForm.address')}</h1>
+//             {orderData.address.map(
+//               ({ name, value, label, error, type, functionError }, index) => (
+//                 <Input
+//                   key={index}
+//                   name={name}
+//                   value={value}
+//                   label={t(label)}
+//                   error={t(error)}
+//                   required={true}
+//                   type={type}
+//                   onChange={handleChange}
+//                   handleBlur={functionError}
+//                 />
+//               )
+//             )}
+//           </div>
+//           <div className='order-form__footer-container'>
+//             <h1 className='order-form__info'>{t('orderForm.payment')}</h1>
+
+//             {orderData.payment.map(({ label, name, value }, index) => (
+//               <div key={index} className='order-form__group'>
+//                 <label className='order-form__label'>{t(label)}</label>
+//                 <input
+//                   onChange={e =>
+//                     setUserInfo({
+//                       ...userInfo,
+//                       payment: e.target.value
+//                     })
+//                   }
+//                   value={value}
+//                   type='radio'
+//                   name={name}
+//                   id={value}
+//                   defaultChecked={index === 0}
+//                 />
+//               </div>
+//             ))}
+//           </div>
+//           <button
+//             onClick={orderMenu}
+//             className='order__button'
+//             disabled={isButtonDisabled}
+//           >
+//             {t('orderForm.orderButton')}
+//           </button>
+//         </form>
+//       )}
+//     </>
+//   )
+// }
+

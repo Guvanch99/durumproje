@@ -207,7 +207,7 @@
          "house":"House",
          "entrance":"Entrance",
          "storey":"Storey"
-         
+
       },
       "payment":"Payment",
       "paymentInfo":{
@@ -223,7 +223,7 @@
          "house":"House field is Empty or is not number"
 
       }
-      
+
    },
    "twoFactorAuth": {
       "label": "Two-Factor Authentication",
@@ -325,6 +325,8 @@
    "bonusZero": "Invalid",
    "bonusPlaceholder": "write a number",
    "bonusError": "You dont have enough bonus",
-   "bonusText": "Bonus"
+   "bonusText": "Bonus",
+   "next": "Next",
+   "prev": "Prev"
 
 }

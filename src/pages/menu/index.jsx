@@ -36,7 +36,7 @@ const Menu = () => {
           setCurrentPage(prev => prev + 1)
         })
       }
-    }, [fetching, dispatch]
+    }, [fetching, dispatch,currentPage]
   )
 
   useEffect(
