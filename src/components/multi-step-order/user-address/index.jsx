@@ -21,14 +21,15 @@ const UserAddress = ({
 
   const { street, house, entrance, storey } = values
 
-  const userAddress = useMemo(() => ([{
-      name: 'street',
-      value: street,
-      label: 'orderForm.addressInfo.street',
-      error: errors.street,
-      type: 'text',
-      functionError: streetValidation
-    },
+  const userAddress = useMemo(() => ([
+      {
+        name: 'street',
+        value: street,
+        label: 'orderForm.addressInfo.street',
+        error: errors.street,
+        type: 'text',
+        functionError: streetValidation
+      },
       {
         name: 'house',
         value: house,
@@ -55,6 +56,10 @@ const UserAddress = ({
       }
     ]),
     [
+      street,
+      house,
+      entrance,
+      storey,
       errors.street,
       errors.house,
       errors.entrance,
@@ -76,25 +81,20 @@ const UserAddress = ({
     e.preventDefault()
     prevStep()
   }
+
   const onNextHandler = (e) => {
     e.preventDefault()
     nextStep()
   }
+
   return (
     <div className='order-container'>
       <h1 className='order-form__text'>{t('orderForm.address')}</h1>
       <form className='order-form'>
-        {
-          userAddress.map(({
-                             name,
-                             value,
-                             label,
-                             error, type,
-                             functionError
-                           },
-                           idx) => (
+        {userAddress.map(
+          ({ name, value, label, error, type, functionError }, index) => (
             <Input
-              key={idx}
+              key={index}
               name={name}
               value={value}
               label={t(label)}
@@ -104,8 +104,8 @@ const UserAddress = ({
               onChange={handleChange}
               handleBlur={functionError}
             />
-          ))
-        }
+          )
+        )}
         <div className='button-container'>
           <button className='order-form__button' onClick={onPrevHandler}>
             <i className='order-form__icon fas fa-arrow-left' />

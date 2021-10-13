@@ -36,4 +36,35 @@
     padding: 0.4rem;
     font-size: 1em;
   }
+
+  &__label {
+    font-size: 1.6em;
+  }
+
+  &__group {
+    margin: 1rem 0;
+    width: 10rem;
+    @include flex(space-between, flex-end);
+  }
+}
+.small{
+  font-size: 2em;
+}
+
+.button-ctn {
+  @include flex(space-between, center);
+}
+
+.button-container {
+  @include flex(space-around, flex-start);
+  width: 40rem;
+
+  @include mobile {
+    width: 20rem;
+  }
+}
+
+.user-payment {
+  margin: 0 auto;
+  width: 10rem;
 }

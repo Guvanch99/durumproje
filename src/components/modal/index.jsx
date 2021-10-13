@@ -2,19 +2,19 @@ import { memo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 
 import { ROUTER_HOME } from '../../constants/routers'
 
 import './index.scss'
 
-const Modal = ({ modalVisibility }) => {
+const Modal = () => {
   const history = useHistory()
   const { t } = useTranslation('translation')
+
   const closeModal = () => {
-    modalVisibility(true)
     history.push(ROUTER_HOME)
   }
+
   let timeDelivery = moment().add(30, 'm').format('hh:mm').toString()
 
   return (
@@ -28,14 +28,10 @@ const Modal = ({ modalVisibility }) => {
           {t('close')}
         </button>
       </div>
-      <div className="app-overlay" />
     </div>
   )
 }
 
 export default memo(Modal)
 
-Modal.propTypes = {
-  modalVisibility: PropTypes.func.isRequired
-}
 

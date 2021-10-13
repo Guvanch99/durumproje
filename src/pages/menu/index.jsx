@@ -48,7 +48,6 @@ const Menu = () => {
   )
 
   const scrollHandler = ({ target: { documentElement: { scrollHeight, scrollTop } } }) => {
-    console.log('fired')
     if (scrollHeight - (scrollTop + window.innerHeight) < 100)
       setFetching(true)
   }

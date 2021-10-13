@@ -111,7 +111,6 @@ export const cartReducer = (state = initialState, { type, payload }) => {
     case CLEAR_ORDER:
       return { ...state, cart: [], gift: [] }
     case PROMO_CODE_USED:
-      console.log('payload', payload)
       let updatedRestrictedPromoCodes = [...state.restrictedPromoCodes, payload]
       return { ...state, restrictedPromoCodes: updatedRestrictedPromoCodes }
     case UPDATE_RESTRICTED_PROMO_CODE:
